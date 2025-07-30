@@ -24,7 +24,7 @@
    - **Classes:**
       - Wearable(Classe que define atributos para uso de dispostivos wearable como data, tipo(passos, calorias, sono, frequência cardíaca..) e valor(quantidade de cada tipo)).
       - Servico_Wearable( Classe que define os métodos e recebe atributos da classe Wearable sendo responsável por gerar_dados_aleatorios(simulação de uso de wearable devices),registro manual,listar dados wearable do usuário, exportar e importar arquivos do tipo .csv para simulação de importação de dispositivos wearable).
- - **Compartilhamento de desafios e Progresso)**
+ - **Compartilhamento de desafios e Progresso**
    - **Classes:**
       - Desafio(Classe que define atributos para desafios entre usuário e compartilhamento de progresso guardando dados como nome, descrição, data início, data fim, numero de participantes).
       - Servico_Desafio(Classe que implementa métodos de criação de desafios,exclusão de desafios, listar desafios e participar de desafios)
