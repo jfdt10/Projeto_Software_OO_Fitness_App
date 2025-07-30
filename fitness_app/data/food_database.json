@@ -1,0 +1,578 @@
+[
+  {
+    
+    "restricoes": [],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Omelete de claras (3 claras)", "calorias": 105, "proteina": 21, "gordura": 0.5, "carboidrato": 2},
+          {"alimento": "Tomate fatiado (1 unidade)", "calorias": 22, "proteina": 1, "gordura": 0.2, "carboidrato": 4.8}
+        ],
+        [
+          {"alimento": "Mingau de aveia", "calorias": 150, "proteina": 5, "gordura": 3, "carboidrato": 27},
+          {"alimento": "Banana pequena", "calorias": 70, "proteina": 1, "gordura": 0.3, "carboidrato": 18}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Peito de frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Arroz integral (1/2 xícara)", "calorias": 112, "proteina": 2.3, "gordura": 0.8, "carboidrato": 23},
+          {"alimento": "Salada verde com azeite", "calorias": 45, "proteina": 1.5, "gordura": 3, "carboidrato": 4}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Filé de peixe assado (100g)", "calorias": 140, "proteina": 28, "gordura": 3, "carboidrato": 0},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8},
+          {"alimento": "Batata-doce pequena assada", "calorias": 90, "proteina": 2, "gordura": 0.1, "carboidrato": 20}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Iogurte natural desnatado", "calorias": 80, "proteina": 8, "gordura": 0.5, "carboidrato": 12}
+        ],
+        [
+          {"alimento": "Maçã com canela", "calorias": 65, "proteina": 0.5, "gordura": 0.2, "carboidrato": 17}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Omelete de claras (3 claras)", "calorias": 105, "proteina": 21, "gordura": 0.5, "carboidrato": 2},
+          {"alimento": "Tomate fatiado (1 unidade)", "calorias": 22, "proteina": 1, "gordura": 0.2, "carboidrato": 4.8}
+        ],
+        [
+          {"alimento": "Panqueca de banana sem glúten", "calorias": 180, "proteina": 6, "gordura": 4, "carboidrato": 32},
+          {"alimento": "Morangos (100g)", "calorias": 32, "proteina": 0.7, "gordura": 0.3, "carboidrato": 8}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Peito de frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/2 xícara)", "calorias": 111, "proteina": 4, "gordura": 1.8, "carboidrato": 20},
+          {"alimento": "Salada verde com azeite", "calorias": 45, "proteina": 1.5, "gordura": 3, "carboidrato": 4}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Salmão grelhado (100g)", "calorias": 180, "proteina": 25, "gordura": 8, "carboidrato": 0},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas mistas (20g)", "calorias": 120, "proteina": 4, "gordura": 10, "carboidrato": 4}
+        ],
+        [
+          {"alimento": "Pera média", "calorias": 60, "proteina": 0.5, "gordura": 0.2, "carboidrato": 16}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["lactose"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Omelete de claras (3 claras)", "calorias": 105, "proteina": 21, "gordura": 0.5, "carboidrato": 2},
+          {"alimento": "Tomate fatiado (1 unidade)", "calorias": 22, "proteina": 1, "gordura": 0.2, "carboidrato": 4.8}
+        ],
+        [
+          {"alimento": "Mingau de aveia com leite vegetal", "calorias": 140, "proteina": 4, "gordura": 3, "carboidrato": 25},
+          {"alimento": "Banana pequena", "calorias": 70, "proteina": 1, "gordura": 0.3, "carboidrato": 18}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Peito de frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Arroz integral (1/2 xícara)", "calorias": 112, "proteina": 2.3, "gordura": 0.8, "carboidrato": 23},
+          {"alimento": "Salada verde com azeite", "calorias": 45, "proteina": 1.5, "gordura": 3, "carboidrato": 4}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Filé de peixe assado (100g)", "calorias": 140, "proteina": 28, "gordura": 3, "carboidrato": 0},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8},
+          {"alimento": "Batata-doce pequena assada", "calorias": 90, "proteina": 2, "gordura": 0.1, "carboidrato": 20}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Ovo cozido", "calorias": 78, "proteina": 6.3, "gordura": 5.3, "carboidrato": 0.6}
+        ],
+        [
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos (2 ovos)", "calorias": 140, "proteina": 12, "gordura": 10, "carboidrato": 1},
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ],
+        [
+          {"alimento": "Omelete com espinafre", "calorias": 120, "proteina": 15, "gordura": 6, "carboidrato": 3}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/3 xícara)", "calorias": 75, "proteina": 3, "gordura": 1.2, "carboidrato": 13},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Tofu grelhado (100g)", "calorias": 144, "proteina": 15, "gordura": 8, "carboidrato": 4},
+          {"alimento": "Berinjela refogada", "calorias": 45, "proteina": 1.5, "gordura": 2, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas-do-pará (3 unidades)", "calorias": 99, "proteina": 2, "gordura": 10, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Pepino com cottage", "calorias": 50, "proteina": 4, "gordura": 1, "carboidrato": 6}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "lactose"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Panqueca de banana sem glúten", "calorias": 180, "proteina": 6, "gordura": 4, "carboidrato": 32},
+          {"alimento": "Morangos (100g)", "calorias": 32, "proteina": 0.7, "gordura": 0.3, "carboidrato": 8}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Peito de frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/2 xícara)", "calorias": 111, "proteina": 4, "gordura": 1.8, "carboidrato": 20},
+          {"alimento": "Salada verde com azeite", "calorias": 45, "proteina": 1.5, "gordura": 3, "carboidrato": 4}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Salmão grelhado (100g)", "calorias": 180, "proteina": 25, "gordura": 8, "carboidrato": 0},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas mistas (20g)", "calorias": 120, "proteina": 4, "gordura": 10, "carboidrato": 4}
+        ],
+        [
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos (2 ovos)", "calorias": 140, "proteina": 12, "gordura": 10, "carboidrato": 1},
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/3 xícara)", "calorias": 75, "proteina": 3, "gordura": 1.2, "carboidrato": 13},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Tofu grelhado (100g)", "calorias": 144, "proteina": 15, "gordura": 8, "carboidrato": 4},
+          {"alimento": "Berinjela refogada", "calorias": 45, "proteina": 1.5, "gordura": 2, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas-do-pará (3 unidades)", "calorias": 99, "proteina": 2, "gordura": 10, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Pepino com tahine", "calorias": 60, "proteina": 2, "gordura": 4, "carboidrato": 5}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["lactose", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos (2 ovos)", "calorias": 140, "proteina": 12, "gordura": 10, "carboidrato": 1},
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/3 xícara)", "calorias": 75, "proteina": 3, "gordura": 1.2, "carboidrato": 13},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Tofu grelhado (100g)", "calorias": 144, "proteina": 15, "gordura": 8, "carboidrato": 4},
+          {"alimento": "Berinjela refogada", "calorias": 45, "proteina": 1.5, "gordura": 2, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas-do-pará (3 unidades)", "calorias": 99, "proteina": 2, "gordura": 10, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Ovo cozido", "calorias": 78, "proteina": 6.3, "gordura": 5.3, "carboidrato": 0.6}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "lactose", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos (2 ovos)", "calorias": 140, "proteina": 12, "gordura": 10, "carboidrato": 1},
+          {"alimento": "Abacate pequeno (50g)", "calorias": 80, "proteina": 1, "gordura": 7.4, "carboidrato": 4}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Frango grelhado (120g)", "calorias": 200, "proteina": 37, "gordura": 4, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1/3 xícara)", "calorias": 75, "proteina": 3, "gordura": 1.2, "carboidrato": 13},
+          {"alimento": "Legumes no vapor", "calorias": 60, "proteina": 3, "gordura": 0.5, "carboidrato": 12}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Tofu grelhado (100g)", "calorias": 144, "proteina": 15, "gordura": 8, "carboidrato": 4},
+          {"alimento": "Berinjela refogada", "calorias": 45, "proteina": 1.5, "gordura": 2, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Castanhas-do-pará (3 unidades)", "calorias": 99, "proteina": 2, "gordura": 10, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Pepino com tahine", "calorias": 60, "proteina": 2, "gordura": 4, "carboidrato": 5}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": [],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com queijo (2 ovos)", "calorias": 220, "proteina": 18, "gordura": 15, "carboidrato": 2},
+          {"alimento": "Pão integral (2 fatias)", "calorias": 140, "proteina": 6, "gordura": 2, "carboidrato": 26},
+          {"alimento": "Banana média", "calorias": 105, "proteina": 1.3, "gordura": 0.4, "carboidrato": 27}
+        ],
+        [
+          {"alimento": "Iogurte grego com granola", "calorias": 200, "proteina": 15, "gordura": 6, "carboidrato": 25},
+          {"alimento": "Mel (1 colher)", "calorias": 65, "proteina": 0, "gordura": 0, "carboidrato": 17}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Arroz integral (1 xícara)", "calorias": 220, "proteina": 5, "gordura": 1.8, "carboidrato": 45},
+          {"alimento": "Feijão carioca (1/2 xícara)", "calorias": 120, "proteina": 8, "gordura": 0.5, "carboidrato": 22}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce assada (1 média)", "calorias": 160, "proteina": 3.5, "gordura": 0.3, "carboidrato": 37},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein com leite", "calorias": 180, "proteina": 30, "gordura": 2, "carboidrato": 8}
+        ],
+        [
+          {"alimento": "Sanduíche de peito de peru", "calorias": 220, "proteina": 20, "gordura": 4, "carboidrato": 28}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com queijo (2 ovos)", "calorias": 220, "proteina": 18, "gordura": 15, "carboidrato": 2},
+          {"alimento": "Tapioca com queijo (2 unidades)", "calorias": 180, "proteina": 8, "gordura": 6, "carboidrato": 25},
+          {"alimento": "Banana média", "calorias": 105, "proteina": 1.3, "gordura": 0.4, "carboidrato": 27}
+        ],
+        [
+          {"alimento": "Iogurte grego com frutas", "calorias": 180, "proteina": 15, "gordura": 6, "carboidrato": 20},
+          {"alimento": "Granola sem glúten", "calorias": 120, "proteina": 3, "gordura": 5, "carboidrato": 18}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1 xícara)", "calorias": 222, "proteina": 8, "gordura": 3.6, "carboidrato": 39},
+          {"alimento": "Feijão carioca (1/2 xícara)", "calorias": 120, "proteina": 8, "gordura": 0.5, "carboidrato": 22}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce assada (1 média)", "calorias": 160, "proteina": 3.5, "gordura": 0.3, "carboidrato": 37},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein sem glúten", "calorias": 160, "proteina": 28, "gordura": 1.5, "carboidrato": 6}
+        ],
+        [
+          {"alimento": "Mix de castanhas (30g)", "calorias": 180, "proteina": 6, "gordura": 15, "carboidrato": 6}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["lactose"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com azeite (2 ovos)", "calorias": 180, "proteina": 14, "gordura": 13, "carboidrato": 2},
+          {"alimento": "Pão integral (2 fatias)", "calorias": 140, "proteina": 6, "gordura": 2, "carboidrato": 26},
+          {"alimento": "Abacate médio (100g)", "calorias": 160, "proteina": 2, "gordura": 15, "carboidrato": 8.5}
+        ],
+        [
+          {"alimento": "Vitamina de banana com leite vegetal", "calorias": 200, "proteina": 6, "gordura": 4, "carboidrato": 38},
+          {"alimento": "Aveia (2 colheres)", "calorias": 80, "proteina": 3, "gordura": 1.5, "carboidrato": 14}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Arroz integral (1 xícara)", "calorias": 220, "proteina": 5, "gordura": 1.8, "carboidrato": 45},
+          {"alimento": "Feijão carioca (1/2 xícara)", "calorias": 120, "proteina": 8, "gordura": 0.5, "carboidrato": 22}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce assada (1 média)", "calorias": 160, "proteina": 3.5, "gordura": 0.3, "carboidrato": 37},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein vegetal", "calorias": 140, "proteina": 25, "gordura": 2, "carboidrato": 5}
+        ],
+        [
+          {"alimento": "Pasta de amendoim com banana", "calorias": 220, "proteina": 8, "gordura": 12, "carboidrato": 25}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com espinafre (3 ovos)", "calorias": 210, "proteina": 18, "gordura": 15, "carboidrato": 4},
+          {"alimento": "Abacate médio (100g)", "calorias": 160, "proteina": 2, "gordura": 15, "carboidrato": 8.5}
+        ],
+        [
+          {"alimento": "Iogurte grego natural", "calorias": 130, "proteina": 18, "gordura": 4, "carboidrato": 9},
+          {"alimento": "Nozes (30g)", "calorias": 200, "proteina": 5, "gordura": 20, "carboidrato": 4}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (2/3 xícara)", "calorias": 148, "proteina": 5.5, "gordura": 2.4, "carboidrato": 26},
+          {"alimento": "Legumes no vapor", "calorias": 80, "proteina": 4, "gordura": 0.5, "carboidrato": 16}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce pequena", "calorias": 110, "proteina": 2.5, "gordura": 0.2, "carboidrato": 25},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein com água", "calorias": 120, "proteina": 25, "gordura": 1, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Castanhas do Pará (6 unidades)", "calorias": 200, "proteina": 4, "gordura": 20, "carboidrato": 4}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "lactose"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com azeite (3 ovos)", "calorias": 270, "proteina": 21, "gordura": 20, "carboidrato": 3},
+          {"alimento": "Tapioca com chia (2 unidades)", "calorias": 160, "proteina": 4, "gordura": 2, "carboidrato": 30}
+        ],
+        [
+          {"alimento": "Vitamina de banana com leite vegetal", "calorias": 200, "proteina": 6, "gordura": 4, "carboidrato": 38},
+          {"alimento": "Aveia sem glúten (2 colheres)", "calorias": 80, "proteina": 3, "gordura": 1.5, "carboidrato": 14}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (1 xícara)", "calorias": 222, "proteina": 8, "gordura": 3.6, "carboidrato": 39},
+          {"alimento": "Feijão carioca (1/2 xícara)", "calorias": 120, "proteina": 8, "gordura": 0.5, "carboidrato": 22}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce assada (1 média)", "calorias": 160, "proteina": 3.5, "gordura": 0.3, "carboidrato": 37},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein vegetal", "calorias": 140, "proteina": 25, "gordura": 2, "carboidrato": 5}
+        ],
+        [
+          {"alimento": "Mix de castanhas (30g)", "calorias": 180, "proteina": 6, "gordura": 15, "carboidrato": 6}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com espinafre (3 ovos)", "calorias": 210, "proteina": 18, "gordura": 15, "carboidrato": 4},
+          {"alimento": "Abacate médio (100g)", "calorias": 160, "proteina": 2, "gordura": 15, "carboidrato": 8.5}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (2/3 xícara)", "calorias": 148, "proteina": 5.5, "gordura": 2.4, "carboidrato": 26},
+          {"alimento": "Legumes no vapor", "calorias": 80, "proteina": 4, "gordura": 0.5, "carboidrato": 16}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce pequena", "calorias": 110, "proteina": 2.5, "gordura": 0.2, "carboidrato": 25},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein sem glúten", "calorias": 120, "proteina": 25, "gordura": 1, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Castanhas do Pará (6 unidades)", "calorias": 200, "proteina": 4, "gordura": 20, "carboidrato": 4}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["lactose", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com espinafre (3 ovos)", "calorias": 210, "proteina": 18, "gordura": 15, "carboidrato": 4},
+          {"alimento": "Abacate médio (100g)", "calorias": 160, "proteina": 2, "gordura": 15, "carboidrato": 8.5}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Arroz integral (2/3 xícara)", "calorias": 145, "proteina": 3.5, "gordura": 1.2, "carboidrato": 30},
+          {"alimento": "Legumes no vapor", "calorias": 80, "proteina": 4, "gordura": 0.5, "carboidrato": 16}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce pequena", "calorias": 110, "proteina": 2.5, "gordura": 0.2, "carboidrato": 25},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein vegetal", "calorias": 140, "proteina": 25, "gordura": 2, "carboidrato": 5}
+        ],
+        [
+          {"alimento": "Pasta de amendoim natural (1 colher)", "calorias": 95, "proteina": 4, "gordura": 8, "carboidrato": 3}
+        ]
+      ]
+    }
+  },
+  {
+    
+    "restricoes": ["glúten", "lactose", "diabetes"],
+    "refeicoes": {
+      "Café da Manhã": [
+        [
+          {"alimento": "Ovos mexidos com espinafre (3 ovos)", "calorias": 210, "proteina": 18, "gordura": 15, "carboidrato": 4},
+          {"alimento": "Abacate médio (100g)", "calorias": 160, "proteina": 2, "gordura": 15, "carboidrato": 8.5}
+        ]
+      ],
+      "Almoço": [
+        [
+          {"alimento": "Patinho moído grelhado (150g)", "calorias": 280, "proteina": 35, "gordura": 14, "carboidrato": 0},
+          {"alimento": "Quinoa cozida (2/3 xícara)", "calorias": 148, "proteina": 5.5, "gordura": 2.4, "carboidrato": 26},
+          {"alimento": "Legumes no vapor", "calorias": 80, "proteina": 4, "gordura": 0.5, "carboidrato": 16}
+        ]
+      ],
+      "Jantar": [
+        [
+          {"alimento": "Frango grelhado (150g)", "calorias": 250, "proteina": 46, "gordura": 5.5, "carboidrato": 0},
+          {"alimento": "Batata-doce pequena", "calorias": 110, "proteina": 2.5, "gordura": 0.2, "carboidrato": 25},
+          {"alimento": "Brócolis refogado", "calorias": 50, "proteina": 3, "gordura": 1.5, "carboidrato": 8}
+        ]
+      ],
+      "Lanches": [
+        [
+          {"alimento": "Whey protein vegetal sem glúten", "calorias": 120, "proteina": 25, "gordura": 1, "carboidrato": 2}
+        ],
+        [
+          {"alimento": "Castanhas do Pará (6 unidades)", "calorias": 200, "proteina": 4, "gordura": 20, "carboidrato": 4}
+        ]
+      ]
+    }
+  }
+]
