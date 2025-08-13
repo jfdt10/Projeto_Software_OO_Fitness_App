@@ -4,7 +4,7 @@ Este módulo fornece funcionalidades para recomendar treinos, criar planos perso
 """
 
 from fitness_app.core.models import PlanoTreino
-from fitness_app.core.database import inserir_registro, obter_registros, atualizar_registro, deletar_registro
+from fitness_app.core.database import inserir_registro, obter_registros, atualizar_registro_por_id, deletar_registro_por_id
 
 
 class ServicoTreino:
@@ -36,8 +36,8 @@ class ServicoTreino:
             if dado.get('usuario_email') == usuario_email
         ]
 
-    def atualizar_plano(self, doc_id, novos_dados: dict):
-        return atualizar_registro('planos_treino', doc_id, novos_dados)
+    def atualizar_plano(self, plano_id, novos_dados: dict):
+        return atualizar_registro_por_id('planos_treino', plano_id, novos_dados)
 
-    def deletar_plano(self, doc_id):
-        return deletar_registro('planos_treino', doc_id)
+    def deletar_plano(self, plano_id):
+        return deletar_registro_por_id('planos_treino', plano_id)

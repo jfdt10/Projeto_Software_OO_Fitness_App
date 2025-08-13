@@ -1,6 +1,6 @@
 [
   {
-    "nome": "Full Body Iniciante",
+    "nome": "Full Body Iniciante Hipertrofia",
     "nivel": "iniciante",
     "objetivo": "hipertrofia",
     "exercicios": [
@@ -12,7 +12,7 @@
     ]
   },
   {
-    "nome": "ABC Iniciante",
+    "nome": "ABC Iniciante Emagrecimento",
     "nivel": "iniciante",
     "objetivo": "emagrecimento",
     "exercicios": [
@@ -24,7 +24,7 @@
     ]
   },
   {
-    "nome": "Full Body Intermediário",
+    "nome": "Full Body Intermediário Hipertrofia",
     "nivel": "intermediario",
     "objetivo": "hipertrofia",
     "exercicios": [
@@ -36,7 +36,7 @@
     ]
   },
   {
-    "nome": "AB Intermediário",
+    "nome": "AB Intermediário Força",
     "nivel": "intermediario",
     "objetivo": "forca",
     "exercicios": [
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "nome": "Push Pull Avançado",
+    "nome": "Push Pull Avançado Hipertrofia",
     "nivel": "avancado",
     "objetivo": "hipertrofia",
     "exercicios": [
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "nome": "ABCDE Avançado",
+    "nome": "ABCDE Avançado Força",
     "nivel": "avancado",
     "objetivo": "forca",
     "exercicios": [
@@ -71,6 +71,116 @@
       {"grupo": "abdomen", "exercicio": "Ab wheel", "series": 4, "repeticoes": 12}
     ]
   },
+    {
+    "nome": "Full Body Iniciante Força",
+    "nivel": "iniciante",
+    "objetivo": "forca",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Flexão tradicional", "series": 3, "repeticoes": 8},
+      {"grupo": "costas", "exercicio": "Remada curvada", "series": 3, "repeticoes": 8},
+      {"grupo": "pernas", "exercicio": "Agachamento livre", "series": 3, "repeticoes": 8},
+      {"grupo": "ombros", "exercicio": "Desenvolvimento halteres", "series": 3, "repeticoes": 8},
+      {"grupo": "abdomen", "exercicio": "Prancha frontal", "series": 3, "repeticoes": 20}
+    ]
+  },
+  {
+    "nome": "Full Body Intermediário Emagrecimento",
+    "nivel": "intermediario",
+    "objetivo": "emagrecimento",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Flexão com rotação", "series": 3, "repeticoes": 12},
+      {"grupo": "costas", "exercicio": "Remada serrote", "series": 3, "repeticoes": 12},
+      {"grupo": "pernas", "exercicio": "Step-ups", "series": 3, "repeticoes": 15},
+      {"grupo": "ombros", "exercicio": "Arnold press", "series": 3, "repeticoes": 12},
+      {"grupo": "abdomen", "exercicio": "Crunch bicicleta", "series": 3, "repeticoes": 20}
+    ]
+  },
+  {
+    "nome": "Full Body Avançado Emagrecimento",
+    "nivel": "avancado",
+    "objetivo": "emagrecimento",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Crossover", "series": 4, "repeticoes": 12},
+      {"grupo": "costas", "exercicio": "Pull-down", "series": 4, "repeticoes": 12},
+      {"grupo": "pernas", "exercicio": "Afundo com halteres", "series": 4, "repeticoes": 12},
+      {"grupo": "ombros", "exercicio": "Face pull", "series": 4, "repeticoes": 12},
+      {"grupo": "abdomen", "exercicio": "V-ups", "series": 4, "repeticoes": 20}
+    ]
+  },
+  {
+    "nome": "Full Body Iniciante Resistência",
+    "nivel": "iniciante",
+    "objetivo": "resistencia",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Flexão inclinada", "series": 2, "repeticoes": 20},
+      {"grupo": "costas", "exercicio": "Remada invertida", "series": 2, "repeticoes": 20},
+      {"grupo": "pernas", "exercicio": "Agachamento sumô", "series": 2, "repeticoes": 20},
+      {"grupo": "ombros", "exercicio": "Elevação lateral leve", "series": 2, "repeticoes": 20},
+      {"grupo": "abdomen", "exercicio": "Crunch bicicleta", "series": 2, "repeticoes": 25}
+    ]
+  },
+  {
+    "nome": "Full Body Intermediário Resistência",
+    "nivel": "intermediario",
+    "objetivo": "resistencia",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Flexão declinada", "series": 3, "repeticoes": 18},
+      {"grupo": "costas", "exercicio": "Remada invertida", "series": 3, "repeticoes": 18},
+      {"grupo": "pernas", "exercicio": "Agachamento sumô", "series": 3, "repeticoes": 18},
+      {"grupo": "ombros", "exercicio": "Elevação lateral", "series": 3, "repeticoes": 18},
+      {"grupo": "abdomen", "exercicio": "Mountain climber", "series": 3, "repeticoes": 25}
+    ]
+  },
+  {
+    "nome": "Full Body Avançado Resistência",
+    "nivel": "avancado",
+    "objetivo": "resistencia",
+    "exercicios": [
+      {"grupo": "peitoral", "exercicio": "Flexão com lastro", "series": 4, "repeticoes": 15},
+      {"grupo": "costas", "exercicio": "Remada T-bar", "series": 4, "repeticoes": 15},
+      {"grupo": "pernas", "exercicio": "Agachamento sumô", "series": 4, "repeticoes": 15},
+      {"grupo": "ombros", "exercicio": "Elevação lateral drop-set", "series": 4, "repeticoes": 15},
+      {"grupo": "abdomen", "exercicio": "Hanging windshield wipers", "series": 4, "repeticoes": 15}
+    ]
+  },
+  {
+    "nome": "Mobilidade Iniciante",
+    "nivel": "iniciante",
+    "objetivo": "mobilidade",
+    "exercicios": [
+      {"grupo": "quadril", "exercicio": "Clamshells", "series": 2, "repeticoes": 15},
+      {"grupo": "ombros", "exercicio": "Arm circles", "series": 2, "repeticoes": 10},
+      {"grupo": "coluna", "exercicio": "Cat-cow", "series": 2, "repeticoes": 12},
+      {"grupo": "tornozelos", "exercicio": "Alfabeto com pés", "series": 2, "repeticoes": 8},
+      {"grupo": "geral", "exercicio": "Alongamento global", "series": 2, "repeticoes": 30}
+    ]
+  },
+  {
+    "nome": "Mobilidade Intermediário",
+    "nivel": "intermediario",
+    "objetivo": "mobilidade",
+    "exercicios": [
+      {"grupo": "quadril", "exercicio": "90/90 stretch", "series": 3, "repeticoes": 12},
+      {"grupo": "ombros", "exercicio": "Band pull-aparts", "series": 3, "repeticoes": 15},
+      {"grupo": "coluna", "exercicio": "Torção russa", "series": 3, "repeticoes": 10},
+      {"grupo": "tornozelos", "exercicio": "Rotação com banda", "series": 3, "repeticoes": 12},
+      {"grupo": "geral", "exercicio": "Sequência de mobilidade", "series": 3, "repeticoes": 45}
+    ]
+  },
+  {
+    "nome": "Mobilidade Avançado",
+    "nivel": "avancado",
+    "objetivo": "mobilidade",
+    "exercicios": [
+      {"grupo": "quadril", "exercicio": "Agachamento profundo (isométrico)", "series": 4, "repeticoes": 8},
+      {"grupo": "ombros", "exercicio": "Shoulder dislocates", "series": 4, "repeticoes": 12},
+      {"grupo": "coluna", "exercicio": "Jefferson curl", "series": 4, "repeticoes": 8},
+      {"grupo": "tornozelos", "exercicio": "Pistol squat mobilidade", "series": 4, "repeticoes": 6},
+      {"grupo": "geral", "exercicio": "Flow de mobilidade avançado", "series": 4, "repeticoes": 60}
+    ]
+  },
+
+
   {
     "treino_musculacao": {
       "diretrizes_gerais": {
@@ -83,12 +193,13 @@
           "hipertrofia": {"repeticoes": "6-12", "series": "3-5", "descanso": "60-90s", "metodo": "Falha concêntrica"},
           "forca": {"repeticoes": "1-6", "series": "4-6", "descanso": "2-5min", "metodo": "Cargas progressivas"},
           "resistencia": {"repeticoes": "15-20+", "series": "3-4", "descanso": "30-45s", "metodo": "Circuitos"},
-          "emagrecimento": {"repeticoes": "12-20", "series": "3-4", "descanso": "30s", "metodo": "Supersets + cardio"}
+          "emagrecimento": {"repeticoes": "12-20", "series": "3-4", "descanso": "30s", "metodo": "Supersets + cardio"},
+          "mobilidade": {"repeticoes": "8-12", "series": "2-3", "descanso": "30s", "metodo": "Alongamentos dinâmicos"}
         }
       },
       "grupos_musculares": {
         "peitoral": {
-          "exercicios": {"com_equipamento": ["Supino reto (barra/halteres)", "Supino inclinado", "Crucifixo (halteres/máquina)", "Voador (Peck-deck)", "Crossover"], "sem_equipamento": ["Flexões tradicionais", "Flexões declinadas", "Flexões diamante", "Flexões com rotação", "Dips entre bancos"]},
+          "exercicios": ["Supino reto (barra/halteres)", "Supino inclinado", "Crucifixo (halteres/máquina)", "Voador (Peck-deck)", "Crossover", "Flexões tradicionais", "Flexões declinadas", "Flexões diamante", "Flexões com rotação", "Dips entre bancos"],
           "niveis": {
             "iniciante": {"exercicios": ["Supino máquina", "Flexões no solo"], "series": "2-3", "repeticoes": "12-15"},
             "intermediario": {"exercicios": ["Supino com halteres", "Crossover", "Flexões com elevação"], "series": "3-4", "repeticoes": "8-12"},
@@ -96,7 +207,7 @@
           }
         },
         "costas": {
-          "exercicios": {"com_equipamento": ["Remada curvada", "Puxada frontal", "Pull-down", "Remada serrote", "Levantamento terra"], "sem_equipamento": ["Barra fixa", "Remada invertida", "Superman", "Puxada australiana", "Pull-over com toalha"]},
+          "exercicios": ["Remada curvada", "Puxada frontal", "Pull-down", "Remada serrote", "Levantamento terra", "Barra fixa", "Remada invertida", "Superman", "Puxada australiana", "Pull-over com toalha"],
           "niveis": {
             "iniciante": {"exercicios": ["Remada máquina", "Puxada frontal"], "series": "2-3", "repeticoes": "12-15"},
             "intermediario": {"exercicios": ["Remada curvada", "Barra fixa", "Remada serrote"], "series": "3-4", "repeticoes": "8-12"},
@@ -104,7 +215,7 @@
           }
         },
         "ombros": {
-          "exercicios": {"com_equipamento": ["Desenvolvimento militar (barra)", "Elevação lateral (halteres)", "Remada alta (barra)", "Crucifixo inverso (máquina)", "Arnold press (halteres)", "Face pull (corda)"], "sem_equipamento": ["Pike push-ups", "Handstand push-up (parede)", "Elevação lateral com garrafas", "Shrugs com saco", "Rotação externa com elástico"]},
+          "exercicios": ["Desenvolvimento militar (barra)", "Elevação lateral (halteres)", "Remada alta (barra)", "Crucifixo inverso (máquina)", "Arnold press (halteres)", "Face pull (corda)", "Pike push-ups", "Handstand push-up (parede)", "Elevação lateral com garrafas", "Shrugs com saco", "Rotação externa com elástico"],
           "niveis": {
             "iniciante": {"exercicios": ["Desenvolvimento máquina", "Elevação lateral leve"], "series": "2-3", "repeticoes": "12-15"},
             "intermediario": {"exercicios": ["Desenvolvimento halteres", "Remada alta", "Face pull"], "series": "3-4", "repeticoes": "8-12"},
@@ -112,8 +223,8 @@
           }
         },
         "bracos": {
-          "biceps": {"com_equipamento": ["Rosca direta (barra W)", "Rosca martelo (halteres)", "Rosca concentrada", "Rosca scott (máquina)", "Rosca 21's"], "sem_equipamento": ["Flexões diamante invertidas", "Rosca isométrica (porta)", "Chin-ups (pegada supinada)", "Rosca com toalha"]},
-          "triceps": {"com_equipamento": ["Tríceps testa (barra)", "Tríceps corda (polia)", "Mergulho entre bancos", "Kickback", "Extensão francesa"], "sem_equipamento": ["Flexões diamante", "Extensão de tríceps no chão", "Dips de bancada", "Tríceps com cadeira"]},
+          "biceps": ["Rosca direta (barra W)", "Rosca martelo (halteres)", "Rosca concentrada", "Rosca scott (máquina)", "Rosca 21's", "Flexões diamante invertidas", "Rosca isométrica (porta)", "Chin-ups (pegada supinada)", "Rosca com toalha"],
+          "triceps": ["Tríceps testa (barra)", "Tríceps corda (polia)", "Mergulho entre bancos", "Kickback", "Extensão francesa", "Flexões diamante", "Extensão de tríceps no chão", "Dips de bancada", "Tríceps com cadeira"],
           "niveis": {
             "iniciante": {"exercicios": ["Rosca direta barra", "Tríceps corda"], "series": "2-3", "repeticoes": "12-15"},
             "intermediario": {"exercicios": ["Rosca martelo", "Tríceps testa", "Rosca scott"], "series": "3-4", "repeticoes": "8-12"},
@@ -121,9 +232,9 @@
           }
         },
         "pernas": {
-          "quadriceps": {"com_equipamento": ["Agachamento livre", "Leg press", "Cadeira extensora", "Hack squat", "Afundo com halteres"], "sem_equipamento": ["Agachamento pistola", "Sissy squat", "Step-ups", "Agachamento sumô"]},
-          "posteriores": {"com_equipamento": ["Stiff (romeno)", "Mesa flexora", "Good morning", "Flexão de perna em pé"], "sem_equipamento": ["Ponte de glúteo", "Nordic ham curl", "Hiperextensão no chão"]},
-          "panturrilhas": {"com_equipamento": ["Elevação gêmeos em máquina", "Gêmeos sentado"], "sem_equipamento": ["Elevação gêmeos em degrau", "Pular corda"]},
+          "quadriceps": ["Agachamento livre", "Leg press", "Cadeira extensora", "Hack squat", "Afundo com halteres", "Agachamento pistola", "Sissy squat", "Step-ups", "Agachamento sumô"],
+          "posteriores": ["Stiff (romeno)", "Mesa flexora", "Good morning", "Flexão de perna em pé", "Ponte de glúteo", "Nordic ham curl", "Hiperextensão no chão"],
+          "panturrilhas": ["Elevação gêmeos em máquina", "Gêmeos sentado", "Elevação gêmeos em degrau", "Pular corda"],
           "niveis": {
             "iniciante": {"exercicios": ["Agachamento goblet", "Leg press", "Ponte de glúteo"], "series": "2-3", "repeticoes": "12-15"},
             "intermediario": {"exercicios": ["Agachamento frontal", "Stiff", "Elevação gêmeos"], "series": "3-4", "repeticoes": "8-12"},
@@ -131,7 +242,7 @@
           }
         },
         "abdomen": {
-          "exercicios": {"com_equipamento": ["Crunch com bola", "Abdominal na polia", "Russian twist com peso", "Ab wheel rollout", "Hanging leg raise"], "sem_equipamento": ["Prancha frontal", "Prancha lateral", "Crunch bicicleta", "Mountain climber", "L-sit", "V-ups"]},
+          "exercicios": ["Crunch com bola", "Abdominal na polia", "Russian twist com peso", "Ab wheel rollout", "Hanging leg raise", "Prancha frontal", "Prancha lateral", "Crunch bicicleta", "Mountain climber", "L-sit", "V-ups"],
           "niveis": {
             "iniciante": {"exercicios": ["Prancha", "Crunch básico"], "series": "2-3", "repeticoes": "15-20 (ou 30s)"},
             "intermediario": {"exercicios": ["Russian twist", "Leg raise", "Mountain climber"], "series": "3-4", "repeticoes": "15-20 (ou 45s)"},
@@ -139,13 +250,28 @@
           }
         }
       },
-      "mobilidade": {
-        "protocolos": {"pre_treino": "10min dinâmico", "pos_treino": "10min estático", "dias_descanso": "20min manutenção"},
+        "mobilidade": {
+        "protocolos": {
+          "pre_treino": "10min dinâmico",
+          "pos_treino": "10min estático",
+          "dias_descanso": "20min manutenção"
+        },
         "exercicios": {
-          "quadril": ["Agachamento profundo (isométrico)", "90/90 stretch", "Clamshells", "Pigeon pose", "Hip circles"],
-          "ombros": ["PVC pass-throughs", "Wall slides", "Arm circles", "Band pull-aparts"],
-          "coluna": ["Cat-cow", "Rolamento lombar", "Torção russa"],
-          "tornozelos": ["Alfabeto com pés", "Elevação de panturrilha", "Rotação com banda"]
+          "joelho": {
+            "iniciante": ["Extensão passiva de joelho", "Flexão assistida de joelho"],
+            "intermediario": ["Alongamento de quadríceps", "Mobilização patelar"],
+            "avancado": ["Agachamento isométrico para joelho", "Mobilidade funcional de joelho"]
+          },
+          "ombros": {
+            "iniciante": ["Arm circles", "Wall slides"],
+            "intermediario": ["Band pull-aparts", "PVC pass-throughs"],
+            "avancado": ["Shoulder dislocates", "Handstand wall walks"]
+          },
+          "coluna": {
+            "iniciante": ["Cat-cow", "Rolamento lombar"],
+            "intermediario": ["Torção russa", "Cobra stretch"],
+            "avancado": ["Jefferson curl", "Bridge rotations"]
+          }
         }
       },
       "divisoes_semanais": {

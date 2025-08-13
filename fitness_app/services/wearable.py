@@ -4,7 +4,7 @@ Este módulo fornece funcionalidades para wearables, registrar dados manuais, ge
 """
 
 from fitness_app.core.models import DadoWearable
-from fitness_app.core.database import inserir_registro, obter_registros, deletar_registro
+from fitness_app.core.database import inserir_registro, obter_registros, deletar_registro_por_id
 import random
 from datetime import datetime
 import csv
@@ -40,9 +40,9 @@ class ServicoWearable:
             if dado.get('usuario_email') == usuario_email
         ]
 
-    def deletar_dado(self, doc_id):
-        return deletar_registro('wearable', doc_id)
-    
+    def deletar_dado(self, dado_id):
+        return deletar_registro_por_id('wearable', dado_id)
+
     def exportar_dados_csv(self, usuario_email, caminho_csv):
         dados = self.listar_dados_usuario(usuario_email)
         with open(caminho_csv, 'w', newline='', encoding='utf-8') as f:
@@ -51,7 +51,7 @@ class ServicoWearable:
             for d in dados:
                 writer.writerow([d.usuario_email, d.data, d.tipo, d.valor])
 
-    def importar_dados_csv(self, usuario_email, caminho_csv):
+    def importar_dados_csv(self, caminho_csv, usuario_email):
         with open(caminho_csv, newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:

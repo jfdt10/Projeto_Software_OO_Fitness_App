@@ -29,7 +29,10 @@ def inserir_registro(tabela, dados):
     dados['criado_em'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     return db.table(tabela).insert(dados)
 
-
+def atualizar_usuario(email, dados_usuario):
+    Q = Query()
+    usuarios.update(dados_usuario, Q.email == email)
+    return True
 
 def obter_registros(tabela, query=None):
     if query:
@@ -38,14 +41,23 @@ def obter_registros(tabela, query=None):
 
 
 
-def atualizar_registro(tabela, doc_id, dados):
-    return db.table(tabela).update(dados, doc_ids=[doc_id])
+def deletar_registro_por_id(tabela, id_model):
+    Q = Query()
+    results = db.table(tabela).search(Q.id == id_model)
+    if results:
+        doc_ids = [r.doc_id for r in results]
+        db.table(tabela).remove(doc_ids=doc_ids)
+        return True
+    return False
 
-
-
-def deletar_registro(tabela, doc_id):
-    return db.table(tabela).remove(doc_ids=[doc_id])
-
+def atualizar_registro_por_id(tabela, id_model, novos_dados):
+    Q = Query()
+    results = db.table(tabela).search(Q.id == id_model)
+    if results:
+        doc_ids = [r.doc_id for r in results]
+        db.table(tabela).update(novos_dados, doc_ids=doc_ids)
+        return True
+    return False
 
 def usuario_existe(nome=None, email=None):
     Usuario = Query()
@@ -75,4 +87,4 @@ __all__ = [
     "db", "usuarios", "planos_treino", "atividades", "nutricao", "metas",
     "desafios", "videos", "recomendacoes", "feedbacks", "forum", "wearable",
     "inserir_registro", "obter_registros", "atualizar_registro", "deletar_registro", "usuario_existe",
-    "backup_banco", "importar_banco"]
+    "backup_banco", "importar_banco", "deletar_registro_por_id", "atualizar_registro_por_id"]

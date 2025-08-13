@@ -4,8 +4,8 @@ import os
 
 os.makedirs("fitness_app/data", exist_ok=True)
 servico = ServicoWearable()
-usuario_email = "usuario@exemplo.com"
+usuario_email = "jean@email.com"
 caminho_csv = "fitness_app/data/wearable.csv"
-tipos = ["passos", "batimentos", "sono"]
+tipos = ["passos", "batimentos", "sono", "distancia", "calorias"]
 
 gerar_csv_wearable_aleatorio(servico, usuario_email, caminho_csv, tipos, dias=30)

@@ -4,9 +4,8 @@ Este módulo fornece funcionalidades para criar, listar, atualizar e deletar fee
 
 """
 
-from fitness_app.core.database import inserir_registro, obter_registros, deletar_registro,atualizar_registro
+from fitness_app.core.database import inserir_registro, obter_registros, deletar_registro_por_id, atualizar_registro_por_id
 from fitness_app.core.models import Feedback
-
 
 class ServicoFeedback:
     def __init__(self):
@@ -17,10 +16,13 @@ class ServicoFeedback:
         inserir_registro("feedbacks", feedback.to_dict()) 
 
     def listar_feedback(self):
-        return obter_registros("feedbacks")
-
+        return [Feedback.from_dict(dado) for dado in obter_registros("feedbacks")]
+    
     def deletar_feedback(self, feedback_id):
-        deletar_registro("feedbacks", feedback_id)
+        return deletar_registro_por_id("feedbacks", feedback_id)
 
     def atualizar_feedback(self, feedback_id, novo_texto, nova_nota, nova_data):
-        atualizar_registro("feedbacks", feedback_id, {"texto": novo_texto, "nota": nova_nota, "data": nova_data})
+        novos_dados = {"texto": novo_texto, "nota": nova_nota, "data": nova_data}
+        return atualizar_registro_por_id("feedbacks", feedback_id, novos_dados)
+
+    

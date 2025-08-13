@@ -1,7 +1,6 @@
 import json
 import os
 import sys
-from tinydb import Query
 from fitness_app.core.database import db
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -11,8 +10,6 @@ sys.path.append(project_root)
 
 def popular_alimentos():
     print("Populando tabela de alimentos...")
-    tabela_perfis = db.table('perfis_alimentares')
-    tabela_perfis.truncate()
     tabela_alimentos = db.table('alimentos')
     tabela_alimentos.truncate()
 
@@ -101,9 +98,28 @@ def popular_treinos():
     except json.JSONDecodeError:
         print(" ERRO: Arquivo 'workouts.json' não é um JSON válido.")
 
+def popular_perfis_alimentares():
+    print("Populando tabela de perfis alimentares...")
+    tabela_perfis = db.table('perfis_alimentares')
+    tabela_perfis.truncate()
+    try:
+        with open('fitness_app/data/food_database.json', 'r', encoding='utf-8') as f:
+            perfis = json.load(f)
+        if perfis:
+            tabela_perfis.insert_multiple(perfis)
+            print(f" {len(perfis)} perfis alimentares inseridos com sucesso!")
+        else:
+            print(" Nenhum perfil alimentar encontrado no JSON.")
+    except FileNotFoundError:
+        print(" ERRO: Arquivo 'food_database.json' não encontrado.")
+    except json.JSONDecodeError:
+        print(" ERRO: Arquivo 'food_database.json' não é um JSON válido.")
+
 
 if __name__ == '__main__':
     print("--- Iniciando a configuração do banco de dados ---")
     popular_alimentos()
     popular_treinos()
+    popular_perfis_alimentares()
     print("\n--- Configuração do banco de dados finalizada! ---")
+    

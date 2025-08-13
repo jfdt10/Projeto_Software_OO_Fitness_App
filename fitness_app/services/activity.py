@@ -4,7 +4,7 @@ Este Módulo fornece funcionalidades para registrar atividades, listar atividade
 """
 
 from fitness_app.core.models import Atividade
-from fitness_app.core.database import inserir_registro, obter_registros, atualizar_registro, deletar_registro
+from fitness_app.core.database import atualizar_registro_por_id, deletar_registro_por_id, inserir_registro, obter_registros
 
 class ServicoAtividade:
     def __init__(self):
@@ -22,7 +22,7 @@ class ServicoAtividade:
         METS = {
             'caminhada': {'lento': 2.8, 'medio': 3.5, 'rapido': 5.0},
             'corrida': {'lento': 7.0, 'medio': 9.8, 'rapido': 11.0},
-            'ciclismo': {'lento': 4.0, 'medio': 8.0, 'rapido': 10.0},
+            'ciclismo': {'lento': 4.0, 'medio': 8.0, 'rápido': 10.0},
             'musculacao': {'medio': 6.0},
         }
         tipo = tipo.strip().lower()
@@ -65,7 +65,7 @@ class ServicoAtividade:
         ]
 
     def atualizar_atividade(self, doc_id, novos_dados: dict):
-        return atualizar_registro('atividades', doc_id, novos_dados)
+        return atualizar_registro_por_id('atividades', doc_id, novos_dados)
 
-    def deletar_atividade(self, doc_id):
-        return deletar_registro('atividades', doc_id)
+    def deletar_atividade(self, atividade_id):
+        return deletar_registro_por_id('atividades', atividade_id)

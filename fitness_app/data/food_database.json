@@ -1,7 +1,7 @@
 [
   {
     
-    "restricoes": [],
+    "restricoes_dieta": [],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -39,7 +39,7 @@
   },
   {
     
-    "restricoes": ["glúten"],
+    "restricoes_dieta": ["glúten"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -75,8 +75,8 @@
     }
   },
   {
-    
-    "restricoes": ["lactose"],
+
+    "restricoes_dieta": ["lactose"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -113,8 +113,8 @@
     }
   },
   {
-    
-    "restricoes": ["diabetes"],
+
+    "restricoes_dieta": ["diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -149,8 +149,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "lactose"],
+
+    "restricoes_dieta": ["glúten", "lactose"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -182,8 +182,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "diabetes"],
+
+    "restricoes_dieta": ["glúten", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -215,8 +215,8 @@
     }
   },
   {
-    
-    "restricoes": ["lactose", "diabetes"],
+
+    "restricoes_dieta": ["lactose", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -248,8 +248,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "lactose", "diabetes"],
+
+    "restricoes_dieta": ["glúten", "lactose", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -282,7 +282,7 @@
   },
   {
     
-    "restricoes": [],
+    "restricoes_dieta": [],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -320,8 +320,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten"],
+
+    "restricoes_dieta": ["glúten"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -359,8 +359,8 @@
     }
   },
   {
-    
-    "restricoes": ["lactose"],
+
+    "restricoes_dieta": ["lactose"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -398,8 +398,8 @@
     }
   },
   {
-    
-    "restricoes": ["diabetes"],
+
+    "restricoes_dieta": ["diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -436,8 +436,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "lactose"],
+
+    "restricoes_dieta": ["glúten", "lactose"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -474,8 +474,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "diabetes"],
+
+    "restricoes_dieta": ["glúten", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -508,8 +508,8 @@
     }
   },
   {
-    
-    "restricoes": ["lactose", "diabetes"],
+
+    "restricoes_dieta": ["lactose", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [
@@ -542,8 +542,8 @@
     }
   },
   {
-    
-    "restricoes": ["glúten", "lactose", "diabetes"],
+
+    "restricoes_dieta": ["glúten", "lactose", "diabetes"],
     "refeicoes": {
       "Café da Manhã": [
         [

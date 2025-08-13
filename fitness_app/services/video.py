@@ -2,13 +2,12 @@
 Servico de Video para o aplicativo de fitness.
 Este módulo fornece funcionalidades para pesquisar videos de treino e videos de orientação fitness, deletar videos.
 """
+from wsgiref import headers
 from youtubesearchpython import VideosSearch
-from fitness_app.core.database import db, inserir_registro, obter_registros, deletar_registro
+from fitness_app.core.database import db, inserir_registro, obter_registros, deletar_registro_por_id
 from fitness_app.core.models import Video
-import requests
 
 class ServicoVideo:
-
     def __init__(self):
         pass
 
@@ -41,21 +40,7 @@ class ServicoVideo:
             registros = [r for r in registros if r.get('usuario_email') == usuario_email]
         return [Video.from_dict(dado) for dado in registros]
     
-    def deletar_video(self, doc_id):
-        return deletar_registro('videos', doc_id)
-    
-    def buscar_exercicios(self, termo, limit=10, offset=0, threshold=0.3):
-        url = "https://exercisedb-90c85o35g-jfdt10s-projects.vercel.app/api/v1/exercises/search"
-        params = {
-            "q": termo,
-            "limit": limit,
-            "offset": offset,
-            "threshold": threshold
-        }
-        response = requests.get(url, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get('data', [])
-        else:
-            raise Exception("Erro ao buscar exercícios: " + response.text)
+    def deletar_video(self, video_id):
+        return deletar_registro_por_id('videos', video_id)
 
+    

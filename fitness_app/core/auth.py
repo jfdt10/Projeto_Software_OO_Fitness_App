@@ -1,5 +1,5 @@
 from fitness_app.core.models import Usuario
-from fitness_app.core.database import usuarios, inserir_registro, obter_registros, usuario_existe
+from fitness_app.core.database import atualizar_usuario, usuarios, inserir_registro, obter_registros, usuario_existe
 
 
 
@@ -22,3 +22,6 @@ class ServicoAutenticacao:
             if dado.get('email') == email:
                 return Usuario.from_dict(dado)
         return None
+    
+    def atualizar_usuario(self, email, usuario: Usuario):
+        return atualizar_usuario(email, usuario.to_dict())

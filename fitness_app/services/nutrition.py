@@ -4,7 +4,7 @@ Este Módulo fornece funcionalidades para registrar atividades, listar atividade
 """
 
 from fitness_app.core.models import RegistroNutricional
-from fitness_app.core.database import db, inserir_registro, obter_registros, atualizar_registro, deletar_registro
+from fitness_app.core.database import atualizar_registro_por_id, db, deletar_registro_por_id, inserir_registro, obter_registros
 from tinydb import Query
 
 class ServicoNutricional:
@@ -67,11 +67,11 @@ class ServicoNutricional:
             if dado.get('usuario_email') == usuario_email
         ]
 
-    def atualizar_registro(self, doc_id, novos_dados: dict):
-        return atualizar_registro('nutricao', doc_id, novos_dados)
+    def atualizar_registro(self, registro_id, novos_dados: dict):
+        return atualizar_registro_por_id('nutricao', registro_id, novos_dados)
 
-    def deletar_registro(self, doc_id):
-        return deletar_registro('nutricao', doc_id)
+    def deletar_registro(self, registro_id):
+        return deletar_registro_por_id('nutricao', registro_id)
 
     def buscar_alimento(self, nome_alimento):
         tabela_alimentos = db.table('alimentos')
@@ -84,10 +84,40 @@ class ServicoNutricional:
 
     def analisar_consumo(self, usuario_email):
         registros = self.listar_registros_usuario(usuario_email)
-        total_calorias = sum(r.calorias for r in registros)
-        total_proteina = sum(r.macros.get("proteina", 0) for r in registros)
-        total_gordura = sum(r.macros.get("gordura", 0) for r in registros)
-        total_carbo = sum(r.macros.get("carboidrato", 0) for r in registros)
+        total_calorias = 0
+        total_proteina = 0
+        total_gordura = 0
+        total_carbo = 0
+        for r in registros:
+            # Suporte a objeto ou dict
+            if isinstance(r, dict):
+                calorias = r.get("calorias", 0)
+                macros = r.get("macros", {})
+            else:
+                calorias = getattr(r, "calorias", 0)
+                macros = getattr(r, "macros", {})
+            if calorias is None:
+                print("Registro inválido: calorias")
+                calorias = 0
+            if not isinstance(macros, dict):
+                print("Registro inválido: macros")
+                macros = {}
+            proteina = macros.get("proteina", 0)
+            gordura = macros.get("gordura", 0)
+            carbo = macros.get("carboidrato", 0)
+            if proteina is None:
+                print("Registro inválido: proteina")
+                proteina = 0
+            if gordura is None:
+                print("Registro inválido: gordura")
+                gordura = 0
+            if carbo is None:
+                print("Registro inválido: carboidrato")
+                carbo = 0
+            total_calorias += calorias
+            total_proteina += proteina
+            total_gordura += gordura
+            total_carbo += carbo
         return {
             "calorias": total_calorias,
             "proteina": total_proteina,

@@ -7,7 +7,6 @@ from fitness_app.services.wearable import ServicoWearable
 from fitness_app.services.social import ServicoSocial
 from fitness_app.core.database import db
 from fitness_app.core.models import Usuario, Atividade, RegistroNutricional, Meta
-from tinydb import Query
 from fitness_app.services.recommendation import ServicoRecomendacao
 from fitness_app.services.video import ServicoVideo
 from fitness_app.services.feedback import ServicoFeedback
@@ -66,17 +65,50 @@ def main():
                 if usuario_logado:
                     print("Login realizado com sucesso!")
                     print(f"Bem-vindo, {usuario_logado.nome}!")
+
                     mapa_nivel = {
-                        "Sedentário": "Iniciante",
-                        "Moderado": "Intermediário",
-                        "Ativo": "Avançado"
+                        "Sedentário": "iniciante",
+                        "Moderado": "intermediario",
+                        "Ativo": "avancado"
                     }
+                    mapa_objetivo = {
+                        "Força": "forca",
+                        "Resistência": "resistencia",
+                        "Emagrecimento": "emagrecimento",
+                        "Hipertrofia": "hipertrofia",
+                        "Mobilidade": "mobilidade"
+                    }
+                    nivel = mapa_nivel.get(usuario_logado.nivel_atividade, "iniciante")
+                    objetivo = mapa_objetivo.get(usuario_logado.objetivo, usuario_logado.objetivo.lower())
+                    restricoes_dieta = usuario_logado.restricao_dieta
+                    
+                   
+                    if isinstance(restricoes_dieta, list):
+                        restricoes_dieta = [item for sublist in restricoes_dieta for item in (sublist if isinstance(sublist, list) else [sublist])]
+                        if len(restricoes_dieta) == 1 and restricoes_dieta[0].lower() == "nenhuma":
+                            restricoes_dieta = []
+                    elif restricoes_dieta == "nenhuma" or not restricoes_dieta:
+                        restricoes_dieta = []
+                    else:
+                        restricoes_dieta = [restricoes_dieta]
+                    
+                    
+                    restricoes_treino = usuario_logado.restricoes_treino
+                    if isinstance(restricoes_treino, list):
+                        
+                        if len(restricoes_treino) == 1 and restricoes_treino[0] == "Nenhuma":
+                            restricoes_treino = []
+                    elif not restricoes_treino:
+                        restricoes_treino = []
+                    else:
+                        restricoes_treino = [restricoes_treino] if isinstance(restricoes_treino, str) else restricoes_treino
                     preferencias_usuario = {
-                        "nivel": mapa_nivel[usuario_logado.nivel_atividade],
-                        "objetivo": usuario_logado.objetivo,
+                        "nivel": nivel,
+                        "email": usuario_logado.email,
+                        "objetivo": objetivo,
                         "frequencia_treino": usuario_logado.frequencia_treino,
-                        "restricao_dieta": usuario_logado.restricao_dieta,
-                        "restricoes_treino": usuario_logado.restricoes_treino
+                        "restricoes_dieta": restricoes_dieta,
+                        "restricoes_treino": restricoes_treino
                     }
                 else:
                     print("Usuário ou senha inválidos.")
@@ -178,45 +210,61 @@ def main():
                         frequencia_treino = "5x por semana"
                         break
                 while True:
+                    print("Restrições de Treino (você pode escolher mais de uma, separando por vírgula, ex: 2,3):")
                     print("Restrições de Treino:")
                     print("1. Nenhuma")
                     print("2. Joelho")
                     print("3. Ombro")
                     print("4. Coluna")
-                    restricao_op = input("Escolha uma opção (1-4): ")
+                    restricao_op = input("Escolha uma opção (1-4): ").split(",")
                     restricao_dict = {
-                        "1": "Nenhuma",
-                        "2": "Joelho",
-                        "3": "Coluna",
-                        "4": "Ombro",
-                        "5": "Outras"
-                 }
-                    if restricao_op in restricao_dict:
-                        restricoes_treino = restricao_dict[restricao_op]
+                        "1": "nenhuma",
+                        "2": "joelho",
+                        "3": "ombro",
+                        "4": "coluna"
+                    } 
+                    restricoes_treino = []
+                    for op in restricao_op:
+                        op = op.strip()
+                        if op in restricao_dict and restricao_dict[op] != "nenhuma":
+                            restricoes_treino.append(restricao_dict[op])
+                    if not restricoes_treino and "1" in restricao_op:
+                        restricoes_treino = ["nenhuma"]
+                    if "nenhuma" in restricoes_treino and len(restricoes_treino) > 1:
+                        restricoes_treino = [r for r in restricoes_treino if r != "nenhuma"]
+                    if restricoes_treino:
                         break
                     print("Opção inválida! Por favor, escolha entre 1 e 4.")
                 while True:
+                    print("Restrições Alimentares (você pode escolher mais de uma, separando por vírgula, ex: 2,3,4):")
                     print("Restrições Alimentares:")
                     print("1. Nenhuma")
                     print("2. Lactose")
                     print("3. Glúten")
                     print("4. Diabetes")
-                    restricao_dieta_op = input("Escolha uma opção (1-4): ")
+                    restricao_dieta_op = input("Escolha uma opção (1-4): ").split(",")
                     restricao_dieta_dict = {
-                        "1": "Nenhuma",
-                        "2": "Lactose",
-                        "3": "Glúten",
-                        "4": "Diabetes",
-                        "5": "Outras"
+                        "1": "nenhuma",
+                        "2": "lactose",
+                        "3": "glúten",
+                        "4": "diabetes"
                     }
-                    if restricao_dieta_op in restricao_dieta_dict:
-                        restricao_dieta = restricao_dieta_dict[restricao_dieta_op]
+                    restricoes_dieta = []
+                    for op in restricao_dieta_op:
+                        op = op.strip()
+                        if op in restricao_dieta_dict and restricao_dieta_dict[op] != "nenhuma":
+                            restricoes_dieta.append(restricao_dieta_dict[op])
+                    if not restricoes_dieta and "1" in restricao_dieta_op:
+                        restricoes_dieta = ["nenhuma"]
+                    if "nenhuma" in restricoes_dieta and len(restricoes_dieta) > 1:
+                        restricoes_dieta = [r for r in restricoes_dieta if r != "nenhuma"]
+                    if restricoes_dieta:
                         break
                     print("Opção inválida! Por favor, escolha entre 1 e 4.")
                 usuario = Usuario(
                 nome, email, senha, genero, idade, peso, altura,
                 nivel_atividade, objetivo,
-                frequencia_treino, restricoes_treino, restricao_dieta, dados_wearable=None,
+                frequencia_treino, restricoes_treino, restricoes_dieta, dados_wearable=None,
                 perfil_completo=False,
                 )
                 try:
@@ -309,20 +357,9 @@ def main():
                             print(f"{idx}. {p.nome} ({p.nivel})")
                         idx = int(input("Digite o número do plano para deletar: ")) - 1
                         if 0 <= idx < len(planos):
-                            tabela = db.table('planos_treino')
                             plano = planos[idx]
-                            Plano = Query()
-                            result = tabela.search(
-                                (Plano.nome == plano.nome) &
-                                (Plano.nivel == plano.nivel) &
-                                (Plano.usuario_email == usuario_logado.email)
-                            )
-                            if result:
-                                doc_id = result[0].doc_id
-                                treino.deletar_plano(doc_id)
-                                print("Plano deletado!")
-                            else:
-                                print("Não foi possível encontrar o plano no banco de dados.")
+                            treino.deletar_plano(plano.id)
+                            print("Plano deletado!")
                         else:
                             print("Índice inválido.")
                     elif subop == "4":
@@ -345,36 +382,24 @@ def main():
                                 idx_video = input("Digite o número do vídeo para associar: ")
                                 idx_video = int(idx_video) - 1
                                 if 0 <= idx_video < len(favoritos):
-                                    tabela = db.table('planos_treino')
                                     plano = planos[idx_plano]
-                                    Plano = Query()
-                                    result = tabela.search(
-                                        (Plano.nome == plano.nome) &
-                                        (Plano.nivel == plano.nivel) &
-                                        (Plano.usuario_email == usuario_logado.email)
-                                    )
-                                    if result:
-                                        doc_id = result[0].doc_id
-                                        plano_dict = result[0].copy()
-                                        if 'videos' not in plano_dict or not isinstance(plano_dict['videos'], list):
-                                            plano_dict['videos'] = []
-
-                                        video_info = {
-                                            'titulo': favoritos[idx_video].titulo,
-                                            'url': favoritos[idx_video].url,
-                                            'duracao': favoritos[idx_video].duracao,
-                                            'data_publicacao': favoritos[idx_video].data_publicacao,
-                                            'descricao': favoritos[idx_video].descricao,
-                                            'thumbnail': favoritos[idx_video].thumbnail
-                                        }
-                                        if video_info not in plano_dict['videos']:
-                                            plano_dict['videos'].append(video_info)
-                                            tabela.update({'videos': plano_dict['videos']}, doc_ids=[doc_id])
-                                            print("Vídeo associado ao plano!")
-                                        else:
-                                            print("Este vídeo já está associado ao plano.")
+                                    video_info = {
+                                        'titulo': favoritos[idx_video].titulo,
+                                        'url': favoritos[idx_video].url,
+                                        'duracao': favoritos[idx_video].duracao,
+                                        'data_publicacao': favoritos[idx_video].data_publicacao,
+                                        'descricao': favoritos[idx_video].descricao,
+                                        'thumbnail': favoritos[idx_video].thumbnail
+                                    }
+                                   
+                                    if not hasattr(plano, 'videos') or not isinstance(plano.videos, list):
+                                        plano.videos = []
+                                    if video_info not in plano.videos:
+                                        plano.videos.append(video_info)
+                                        treino.atualizar_plano(plano.id, {'videos': plano.videos})
+                                        print("Vídeo associado ao plano!")
                                     else:
-                                        print("Não foi possível encontrar o plano no banco de dados.")
+                                        print("Este vídeo já está associado ao plano.")
                                 else:
                                     print("Índice de vídeo inválido.")
                             else:
@@ -407,6 +432,19 @@ def main():
                         duracao = input("Duração (min): ")
                         calorias = input("Calorias gastas (deixe vazio para calcular automaticamente): ")
                         passos = input("Passos (opcional): ")
+                        ritmo = None
+                        if tipo.lower() in ["caminhada", "corrida", "ciclismo"]:
+                            print("Ritmo:")
+                            print("1. Lento")
+                            print("2. Medio")
+                            print("3. Rapido")
+                            ritmo = input("Escolha uma opção de ritmo: ")
+                            ritmos = {
+                                "1": "Lento",
+                                "2": "Medio",
+                                "3": "Rapido"
+                            }
+                            ritmo = ritmos.get(ritmo, "Medio")
                         calorias_val = calorias if calorias else None
                         nova = Atividade(
                             usuario_email=usuario_logado.email,
@@ -414,9 +452,10 @@ def main():
                             data=data,
                             duracao=duracao,
                             calorias=calorias_val,
-                            passos=passos if passos else None
+                            passos=passos if passos else None,
+                            ritmo=ritmo if ritmo else None
                         )
-                        atividade.registrar_atividade(nova, usuario=usuario_logado)
+                        atividade.registrar_atividade(nova, usuario=usuario_logado, ritmo= ritmo)
                         print("Atividade registrada!")
                     elif subop == "3":
                         atividades = atividade.listar_atividades_usuario(usuario_logado.email)
@@ -424,21 +463,9 @@ def main():
                             print(f"{idx}. {a.tipo} em {a.data} ({a.calorias} kcal)")
                         idx = int(input("Digite o número da atividade para deletar: ")) - 1
                         if 0 <= idx < len(atividades):
-                            tabela = db.table('atividades')
                             atividade_obj = atividades[idx]
-                            Ativ = Query()
-                            result = tabela.search(
-                                (Ativ.usuario_email == atividade_obj.usuario_email) &
-                                (Ativ.tipo == atividade_obj.tipo) &
-                                (Ativ.data == atividade_obj.data) &
-                                (Ativ.duracao == atividade_obj.duracao)
-                            )
-                            if result:
-                                doc_id = result[0].doc_id
-                                atividade.deletar_atividade(doc_id)
-                                print("Atividade deletada!")
-                            else:
-                                print("Não foi possível encontrar a atividade no banco de dados.")
+                            atividade.deletar_atividade(atividade_obj.id)
+                            print("Atividade deletada!")
                         else:
                             print("Índice inválido.")
                     elif subop == "4":
@@ -450,34 +477,34 @@ def main():
                                 print(f"{idx}. {a.tipo} em {a.data} ({a.calorias} kcal)")
                             idx = int(input("Digite o número da atividade para atualizar: ")) - 1
                             if 0 <= idx < len(atividades):
-                                tabela = db.table('atividades')
                                 atividade_obj = atividades[idx]
-                                Ativ = Query()
-                                result = tabela.search(
-                                    (Ativ.usuario_email == atividade_obj.usuario_email) &
-                                    (Ativ.tipo == atividade_obj.tipo) &
-                                    (Ativ.data == atividade_obj.data) &
-                                    (Ativ.duracao == atividade_obj.duracao)
-                                )
-                                if result:
-                                    doc_id = result[0].doc_id
-                                    print("Deixe em branco para manter o valor atual.")
-                                    novo_tipo = input(f"Novo tipo de atividade (atual: {atividade_obj.tipo}): ") or atividade_obj.tipo
-                                    nova_data = input(f"Nova data (atual: {atividade_obj.data}): ") or atividade_obj.data
-                                    nova_duracao = input(f"Nova duração (min) (atual: {atividade_obj.duracao}): ") or atividade_obj.duracao
-                                    novas_calorias = input(f"Novas calorias gastas (atual: {atividade_obj.calorias}): ") or atividade_obj.calorias
-                                    novos_passos = input(f"Novos passos (atual: {atividade_obj.passos}): ") or atividade_obj.passos
-                                    novos_dados = {
-                                        "tipo": novo_tipo,
-                                        "data": nova_data,
-                                        "duracao": nova_duracao,
-                                        "calorias": novas_calorias,
-                                        "passos": novos_passos
-                                    }
-                                    atividade.atualizar_atividade(doc_id, novos_dados)
-                                    print("Atividade atualizada!")
+                                print("Deixe em Branco para manter o valor atual")
+                                novo_tipo = input(f"Novo tipo de atividade (atual: {atividade_obj.tipo}): ") or atividade_obj.tipo
+                                nova_data = input(f"Nova data (atual: {atividade_obj.data}): ") or atividade_obj.data
+                                nova_duracao = input(f"Nova duração (min) (atual: {atividade_obj.duracao}): ") or atividade_obj.duracao
+                                novas_calorias = input(f"Novas calorias gastas (atual: {atividade_obj.calorias}): ")
+                                if not novas_calorias:
+                                    peso_usuario = usuario_logado.peso if hasattr(usuario_logado, 'peso') else 70
+                                    try:
+                                        novas_calorias = atividade.calcular_calorias(
+                                            novo_tipo,
+                                            float(peso_usuario),
+                                            float(nova_duracao)
+                                        )
+                                    except Exception:
+                                        novas_calorias = atividade_obj.calorias
                                 else:
-                                    print("Não foi possível encontrar a atividade no banco de dados.")
+                                    novas_calorias = novas_calorias
+                                novos_passos = input(f"Novos passos (atual: {atividade_obj.passos}): ") or atividade_obj.passos
+                                novos_dados = {
+                                    "tipo": novo_tipo,
+                                    "data": nova_data,
+                                    "duracao": nova_duracao,
+                                    "calorias": novas_calorias,
+                                    "passos": novos_passos
+                                }
+                                atividade.atualizar_atividade(atividade_obj.id, novos_dados)
+                                print("Atividade atualizada!")
                             else:
                                 print("Índice inválido.")
                     elif subop == "0":
@@ -490,6 +517,8 @@ def main():
                     print("1. Listar registros")
                     print("2. Registrar refeição")
                     print("3. Deletar registro")
+                    print("4. Atualizar registro")
+                    print("5. Analisar Consumo")
                     print("0. Voltar")
                     subop = input("Escolha uma opção: ")
                     if subop == "1":
@@ -502,7 +531,7 @@ def main():
                                     r = RegistroNutricional(
                                         usuario_email=r.get('usuario_email', usuario_logado.email),
                                         data=r.get('data', '-'),
-                                        alimentos=r.get('alimentos', []),
+                                        refeicoes=r.get('refeicoes', []),
                                         calorias=r.get('calorias', 0),
                                         id=r.get('id', None)
                                     )
@@ -516,12 +545,21 @@ def main():
                                 print(f"{idx}. {nome}")
                         else:
                             print("Nenhum alimento cadastrado ainda.")
-
                         alimentos = []
                         while True:
-                            nome_input = input("Digite o nome do alimento que deseja adicionar (ou 'fim' para terminar): ").strip()
+                            nome_input = input("Digite o nome ou índice do alimento que deseja adicionar (ou 'fim' para terminar): ").strip()
                             if nome_input.lower() == 'fim':
                                 break
+
+                            if nome_input.isdigit():
+                                idx = int(nome_input) - 1
+                                if 0 <= idx < len(nomes_alimentos):
+                                    nome_input = nomes_alimentos[idx]
+                                else:
+                                    print("Índice inválido")
+                                    continue
+                            else:
+                                nome_input = nome_input.lower().strip()
 
                             alimento = nutricional.buscar_alimento(nome_input)
                             
@@ -564,35 +602,41 @@ def main():
                                         print("Valores nutricionais inválidos. Tente novamente.")
                                         continue
 
-                            # Se encontrou o alimento (seja direto ou após cadastro)
+                            
                             if alimento:
                                 while True:
                                     try:
-                                        quantidade = float(input(f"Quantidade de '{alimento['nome']}' (ex: 1 para unidade, 0.5 para meia): ") or 1)
+                                        quantidade = float(input(f"Quantidade de '{alimento['alimento']}' (ex: 1 para unidade, 0.5 para meia): ") or 1)
                                         break
                                     except ValueError:
                                         print("Quantidade inválida. Digite um número.")
                                 
                                 alimentos.append({
-                                    "alimento": alimento["nome"],
+                                    "alimento": alimento["alimento"],
                                     "calorias": alimento["calorias"],
                                     "proteina": alimento["proteina"],
                                     "gordura": alimento["gordura"],
                                     "carboidrato": alimento["carboidrato"],
                                     "quantidade": quantidade
                                 })
-                                print(f"'{alimento['nome']}' adicionado à refeição.")
+                                print(f"'{alimento['alimento']}' adicionado à refeição.")
 
                         if not alimentos:
                             print("Nenhum alimento adicionado. Registro cancelado.")
                             continue
 
                         total_calorias = sum(a["calorias"] * a["quantidade"] for a in alimentos)
+                        macros = {
+                            "proteina": sum(a["proteina"] * a["quantidade"] for a in alimentos),
+                            "gordura": sum(a["gordura"] * a["quantidade"] for a in alimentos),
+                            "carboidrato": sum(a["carboidrato"] * a["quantidade"] for a in alimentos)
+                        }
                         registro = RegistroNutricional(
                             usuario_email=usuario_logado.email,
                             data=data,
-                            alimentos=alimentos,
-                            calorias=total_calorias
+                            refeicoes=alimentos,
+                            calorias=total_calorias,
+                            macros=macros
                         )
                         try:
                             nutricional.registrar_refeicao(usuario_logado.email, data, alimentos, registro=registro)
@@ -602,13 +646,169 @@ def main():
                     elif subop == "3":
                         registros = nutricional.listar_registros_usuario(usuario_logado.email)
                         for idx, r in enumerate(registros, 1):
+                            if not isinstance(r, RegistroNutricional):
+                                r = RegistroNutricional(
+                                    usuario_email=r.get('usuario_email', usuario_logado.email),
+                                    data=r.get('data', '-'),
+                                    refeicoes=r.get('refeicoes', []),
+                                    calorias=r.get('calorias', 0),
+                                    macros=r.get('macros', {}),
+                                    id=r.get('id', None)
+                                )
                             print(f"{idx}. {r.data}")
+
                         idx = int(input("Digite o número do registro para deletar: ")) - 1
                         if 0 <= idx < len(registros):
-                            nutricional.deletar_registro(registros[idx].id)
+                            r = registros[idx]
+                            if not isinstance(r, RegistroNutricional):
+                                r = RegistroNutricional(
+                                    usuario_email=r.get('usuario_email', usuario_logado.email),
+                                    data=r.get('data', '-'),
+                                    refeicoes=r.get('refeicoes', []),
+                                    calorias=r.get('calorias', 0),
+                                    macros=r.get('macros', {}),
+                                    id=r.get('id', None)
+                                )
+                            nutricional.deletar_registro(r.id)
                             print("Registro deletado!")
                         else:
                             print("Índice inválido.")
+                    elif subop == "4":
+                        registros = nutricional.listar_registros_usuario(usuario_logado.email)
+                        if not registros:
+                            print("Nenhum registro encontrado.")
+                        else:
+                            for idx, r in enumerate(registros, 1):
+                                print(f"{idx}. {r.data} - {r.calorias} kcal")
+                            idx = int(input("Digite o número do registro para atualizar: ")) - 1
+                            if 0 <= idx < len(registros):
+                                registro = registros[idx]
+                                print("Deixe em branco para manter o valor atual.")
+                                nova_data = input(f"Nova data (atual: {registro.data}): ") or registro.data
+                                novos_alimentos = registro.refeicoes.copy()
+                        while True:
+                            print("\nAlimentos atuais na refeição:")
+                            for i, alimento in enumerate(novos_alimentos, 1):
+                                print(f"{i}. {alimento['alimento']} - {alimento['quantidade']} unidades")
+                            print("1. Adicionar novo alimento")
+                            print("2. Editar/substituir um alimento")
+                            print("0. Finalizar edição")
+                            acao = input("Escolha uma opção: ").strip()
+
+                            if acao == '1':
+                                nomes_alimentos = nutricional.listar_todos_alimentos()
+                                if nomes_alimentos:
+                                    print("\nAlimentos disponíveis no banco de dados:")
+                                    for idx, nome in enumerate(nomes_alimentos, 1):
+                                        print(f"{idx}. {nome}")
+                                nome = input("Digite o nome ou número do alimento: ").strip()
+                                if nome.isdigit():
+                                    idx_nome = int(nome) - 1
+                                    if 0 <= idx_nome < len(nomes_alimentos):
+                                        nome = nomes_alimentos[idx_nome]
+                                    else:
+                                        print("Índice inválido.")
+                                        continue
+                                alimento = nutricional.buscar_alimento(nome)
+                                if not alimento:
+                                    print("Alimento não encontrado.")
+                                    cadastrar = input("Deseja cadastrar esse alimento? (s/n): ").strip().lower()
+                                    if cadastrar == 's':
+                                        try:
+                                            calorias = float(input(f"Calorias de '{nome}': "))
+                                            proteina = float(input(f"Proteína (g) de '{nome}': "))
+                                            gordura = float(input(f"Gordura (g) de '{nome}': "))
+                                            carboidrato = float(input(f"Carboidrato (g) de '{nome}': "))
+                                            nutricional.cadastrar_alimento(nome, calorias, proteina, gordura, carboidrato)
+                                            print(f"Alimento '{nome}' cadastrado com sucesso!")
+                                            alimento = nutricional.buscar_alimento(nome)
+                                        except ValueError:
+                                            print("Valores inválidos. Operação cancelada.")
+                                            continue
+                                    else:
+                                        continue
+                                try:
+                                    quantidade = float(input(f"Quantidade de '{alimento['alimento']}': ") or 1)
+                                    alimento_novo = {
+                                        "alimento": alimento["alimento"],
+                                        "calorias": alimento["calorias"],
+                                        "proteina": alimento["proteina"],
+                                        "gordura": alimento["gordura"],
+                                        "carboidrato": alimento["carboidrato"],
+                                        "quantidade": quantidade
+                                    }
+                                    novos_alimentos.append(alimento_novo)
+                                    print(f"'{alimento['alimento']}' adicionado.")
+                                except ValueError:
+                                    print("Quantidade inválida.")
+
+                            elif acao == '2':
+                                idx_edit = input("Digite o número do alimento para editar/substituir: ")
+                                if idx_edit.isdigit():
+                                    idx_edit = int(idx_edit) - 1
+                                    if 0 <= idx_edit < len(novos_alimentos):
+                                        nomes_alimentos = nutricional.listar_todos_alimentos()
+                                        if nomes_alimentos:
+                                            print("\nAlimentos disponíveis no banco de dados:")
+                                            for idx, nome in enumerate(nomes_alimentos, 1):
+                                                print(f"{idx}. {nome}")
+                                        nome = input("Digite o nome ou número do alimento para substituir: ").strip()
+                                        if nome.isdigit():
+                                            idx_nome = int(nome) - 1
+                                            if 0 <= idx_nome < len(nomes_alimentos):
+                                                nome = nomes_alimentos[idx_nome]
+                                            else:
+                                                print("Índice inválido.")
+                                                continue
+                                        alimento = nutricional.buscar_alimento(nome)
+                                        if not alimento:
+                                            print("Alimento não encontrado.")
+                                            cadastrar = input("Deseja cadastrar esse alimento? (s/n): ").strip().lower()
+                                            if cadastrar == 's':
+                                                try:
+                                                    calorias = float(input(f"Calorias de '{nome}': "))
+                                                    proteina = float(input(f"Proteína (g) de '{nome}': "))
+                                                    gordura = float(input(f"Gordura (g) de '{nome}': "))
+                                                    carboidrato = float(input(f"Carboidrato (g) de '{nome}': "))
+                                                    nutricional.cadastrar_alimento(nome, calorias, proteina, gordura, carboidrato)
+                                                    print(f"Alimento '{nome}' cadastrado com sucesso!")
+                                                    alimento = nutricional.buscar_alimento(nome)
+                                                except ValueError:
+                                                    print("Valores inválidos. Operação cancelada.")
+                                                    continue
+                                            else:
+                                                continue
+                                        try:
+                                            quantidade = float(input(f"Quantidade de '{alimento['alimento']}': ") or 1)
+                                            alimento_novo = {
+                                                "alimento": alimento["alimento"],
+                                                "calorias": alimento["calorias"],
+                                                "proteina": alimento["proteina"],
+                                                "gordura": alimento["gordura"],
+                                                "carboidrato": alimento["carboidrato"],
+                                                "quantidade": quantidade
+                                            }
+                                            novos_alimentos[idx_edit] = alimento_novo
+                                            print("Alimento substituído com sucesso.")
+                                        except ValueError:
+                                            print("Quantidade inválida.")
+                                    else:
+                                        print("Índice inválido.")
+                                else:
+                                    print("Entrada inválida.")
+
+                            elif acao == '0' or acao.lower() == 'fim':
+                                break
+                            else:
+                                print("Opção inválida.")
+                    elif subop == "5":
+                        resumo = nutricional.analisar_consumo(usuario_logado.email)
+                        print("\n--- Análise de Consumo ---")
+                        print(f"Total de calorias: {resumo['calorias']} kcal")
+                        print(f"Total de proteínas: {resumo['proteina']} g")
+                        print(f"Total de gorduras: {resumo['gordura']} g")
+                        print(f"Total de carboidratos: {resumo['carboidrato']} g")
+                        print("\nAnálise concluída!")
                     elif subop == "0":
                         break
                     else:
@@ -619,6 +819,9 @@ def main():
                     print("1. Listar metas")
                     print("2. Criar meta")
                     print("3. Deletar meta")
+                    print("4. Atualizar meta")
+                    print("5. Verificar Progresso")
+                    print("6. Concluir Meta")
                     print("0. Voltar")
                     subop = input("Escolha uma opção: ")
                     if subop == "1":
@@ -658,10 +861,54 @@ def main():
                                 print(f"{idx}. {m.tipo}: {m.valor}")
                             idx = int(input("Digite o número da meta para deletar: ")) - 1
                             if 0 <= idx < len(metas):
-                                meta.deletar_meta(metas[idx].id)
-                                print("Meta deletada!")
+                               meta.deletar_meta(metas[idx].id)
+                               print("Meta deletada!")
                             else:
                                 print("Índice inválido.")
+
+                    elif subop == "4":
+                        metas = meta.listar_metas_usuario(usuario_logado.email)
+                        if not metas:
+                            print("Nenhuma meta cadastrada.")
+                        else:
+                            for idx, m in enumerate(metas, 1):
+                                print(f"{idx}. {m.tipo}: {m.valor}")
+                            idx = int(input("Digite o número da meta para atualizar: ")) - 1
+                            if 0 <= idx < len(metas):
+                                tipo = input("Novo tipo de meta: ")
+                                valor = input("Novo valor/meta: ")
+                                data_inicio = input("Nova data início (DD-MM-YYYY): ")
+                                data_fim = input("Nova data fim (DD-MM-YYYY): ")
+                                meta.atualizar_meta(
+                                    metas[idx].id,
+                                    {
+                                        "tipo": tipo,
+                                        "valor": valor,
+                                        "data_inicio": data_inicio,
+                                        "data_fim": data_fim
+                                    }
+                                )
+                                print("Meta atualizada!")
+                    elif subop == "5":
+                         progresso = meta.verificar_progresso(usuario_logado.email)
+                         print("Metas atingidas:")
+                         for m in progresso["atingidas"]:
+                            print(f"- {m.tipo}: {m.valor}")
+                         print("Metas pendentes:")
+                         for m in progresso["pendentes"]:
+                             print(f"- {m.tipo}: {m.valor}")
+                    elif subop == "6":
+                        metas = meta.listar_metas_usuario(usuario_logado.email)
+                        if not metas:
+                            print("Nenhuma meta cadastrada.")
+                        else:
+                            for idx, m in enumerate(metas, 1):
+                                status = "Atingida" if m.atingida else "Pendente"
+                                print(f"{idx}. {m.tipo}: {m.valor} ({status})")
+                            idx = int(input("Digite o número da meta para concluir: ")) - 1
+                            if 0 <= idx < len(metas):
+                                meta.concluir_meta(metas[idx].id)
+                                print("Meta concluída!")
                     elif subop == "0":
                         break
                     else:
@@ -673,6 +920,7 @@ def main():
                     print("2. Registrar dado manual")
                     print("3. Gerar dado aleatório")
                     print("4. Deletar dado")
+                    print("5. Importar Dados do CSV")
                     print("0. Voltar")
                     subop = input("Escolha uma opção: ")
                     if subop == "1":
@@ -695,12 +943,33 @@ def main():
                         dados = wearable.listar_dados_usuario(usuario_logado.email)
                         for idx, d in enumerate(dados, 1):
                             print(f"{idx}. {d.tipo} em {d.data}")
-                        idx = int(input("Digite o número do dado para deletar: ")) - 1
-                        if 0 <= idx < len(dados):
-                            wearable.deletar_dado(dados[idx].id)
-                            print("Dado deletado!")
+                        print("Digite o número do dado para deletar ou 'todos' para deletar todos os dados.")
+                        escolha = input("Sua escolha: ").strip().lower()
+                        if escolha == "todos":
+                            for d in dados:
+                                wearable.deletar_dado(d.id)
+                            print("Todos os dados foram deletados!")
                         else:
-                            print("Índice inválido.")
+                            try:
+                                idx = int(escolha) - 1
+                                if 0 <= idx < len(dados):
+                                    wearable.deletar_dado(dados[idx].id)
+                                    print("Dado deletado!")
+                                else:
+                                    print("Índice inválido.")
+                            except ValueError:
+                                print("Entrada inválida.")
+                    elif subop == "5":
+                        csv_path = "c:\\Users\\Jean\\Desktop\\Vscode\\Projeto_de_Software\\fitness_app\\data\\wearable.csv"
+                        try:
+                            wearable.importar_dados_csv(csv_path, usuario_logado.email)
+                            print("Dados importados com sucesso!")
+                            dados = wearable.listar_dados_usuario(usuario_logado.email)
+                            print("Dados importados:")
+                            for idx, d in enumerate(dados, 1):
+                                print(f"{idx}. {d.tipo} em {d.data}: {d.valor}")
+                        except Exception as e:
+                            print(f"Erro ao importar dados: {e}")
                     elif subop == "0":
                         break
                     else:
@@ -775,7 +1044,6 @@ def main():
                                 print(f"   Publicado: {v.data_publicacao}")
                                 print(f"   Descrição: {v.descricao}")
                                 print(f"   Thumbnail: {v.thumbnail}")
-                        # Armazena resultados na sessão para possível favoritar
                         video._ultimos_resultados = resultados
                     elif subop == "2":
                         favoritos = video.listar_videos(usuario_logado.email)
@@ -791,7 +1059,7 @@ def main():
                                 print(f"   Descrição: {v.descricao}")
                                 print(f"   Thumbnail: {v.thumbnail}")
                     elif subop == "3":
-                        # Favoritar vídeo pesquisado
+                        
                         ultimos = getattr(video, '_ultimos_resultados', None)
                         if not ultimos:
                             print("Faça uma busca primeiro!")
@@ -802,8 +1070,14 @@ def main():
                         try:
                             idx = int(idx) - 1
                             if 0 <= idx < len(ultimos):
-                                video.registrar_video(ultimos[idx], usuario_logado.email)
-                                print("Vídeo favoritado!")
+                                favoritos = video.listar_videos(usuario_logado.email)
+                                url_favoritar = ultimos[idx].url
+                                ja_favoritado = any(f.url == url_favoritar for f in favoritos)
+                                if ja_favoritado:
+                                    print("Vídeo já está nos favoritos.")
+                                else:
+                                    video.registrar_video(ultimos[idx], usuario_logado.email)
+                                    print("Vídeo favoritado!")
                             else:
                                 print("Índice inválido.")
                         except Exception:
@@ -819,16 +1093,13 @@ def main():
                         try:
                             idx = int(idx) - 1
                             if 0 <= idx < len(favoritos):
-                                doc_id = getattr(favoritos[idx], 'id', None) or getattr(favoritos[idx], 'doc_id', None)
-                                if doc_id:
-                                    video.deletar_video(doc_id)
-                                    print("Vídeo deletado!")
-                                else:
-                                    print("Não foi possível encontrar o vídeo no banco de dados.")
+                                video_obj = favoritos[idx]
+                                video.deletar_video(video_obj.id)
+                                print("Vídeo deletado!")
                             else:
                                 print("Índice inválido.")
                         except Exception:
-                            print("Entrada inválida.")
+                            print("Entrada inválida.")                            
                     elif subop == "0":
                         break
                     else:
@@ -848,122 +1119,282 @@ def main():
                     print("9. Atualizar minhas preferências")
                     print("0. Voltar")
                     subop = input("Escolha uma opção: ")
-
+                    
                     if subop == "1":
                         treinos = recomendacao.recomendar_treinos_sugestoes(preferencias_usuario)
                         if not treinos:
                             print("Nenhuma recomendação de treino encontrada para suas preferências.")
                         else:
                             print("\n--- Recomendações de Treino ---")
-                            for idx, rec in enumerate(treinos, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('nome', '-')}")
-                                print(f"   Nível: {dados.get('nivel', '-')}")
-                                print(f"   Objetivo: {dados.get('objetivo', '-')}")
-                                print("   Exercícios:")
-                                for ex in dados.get('exercicios', []):
-                                    if isinstance(ex, dict):
-                                        grupo = ex.get('grupo', '-')
-                                        exercicio = ex.get('exercicio', '-')
-                                        series = ex.get('series', '-')
-                                        repeticoes = ex.get('repeticoes', '-')
-                                        print(f"      - [{grupo}] {exercicio}: {series}x{repeticoes}")
-                                    else:
-                                        print(f"      - {ex}")
+                            idx = 1
+                            for rec in treinos:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("nome"):
+                                    print(f"{idx}. {dados.get('nome', '-')}")
+                                    print(f"   Nível: {dados.get('nivel', '-')}")
+                                    print(f"   Objetivo: {dados.get('objetivo', '-')}")
+                                    print("   Exercícios:")
+                                    for ex in dados.get('exercicios', []):
+                                        if isinstance(ex, dict):
+                                            grupo = ex.get('grupo', '-')
+                                            exercicio = ex.get('exercicio', '-')
+                                            series = ex.get('series', '-')
+                                            repeticoes = ex.get('repeticoes', '-')
+                                            print(f"      - [{grupo}] {exercicio}: {series}x{repeticoes}")
+                                        else:
+                                            print(f"      - {ex}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "2":
                         alimentos = recomendacao.recomendar_alimentos_sugestoes(preferencias_usuario)
                         if not alimentos:
                             print("Nenhuma recomendação de alimento encontrada para suas preferências.")
                         else:
                             print("\n--- Recomendações de Nutrição ---")
-                            for idx, rec in enumerate(alimentos, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('nome', '-')}")
-                                print(f"   Grupo: {dados.get('grupo', '-')}")
-                                print(f"   Calorias: {dados.get('calorias', '-')} kcal")
-                                print(f"   Macronutrientes: {dados.get('macros', '-')}")
+                            idx = 1
+                            for rec in alimentos:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("nome_refeicao"):
+                                    print(f"{idx}. {dados.get('nome_refeicao', '-')}:")
+                                    for item in dados.get("itens", []):
+                                        if isinstance(item, dict):
+                                            nome = item.get("alimento", "-")
+                                            calorias = item.get("calorias", "-")
+                                            proteina = item.get("proteina", "-")
+                                            gordura = item.get("gordura", "-")
+                                            carboidrato = item.get("carboidrato", "-")
+                                            print(f"   - {nome} | {calorias} kcal | Prot: {proteina}g | Gord: {gordura}g | Carb: {carboidrato}g")
+                                        else:
+                                            print(f"   - {item}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
                     elif subop == "3":
                         diretrizes = recomendacao.recomendar_diretrizes_gerais(preferencias_usuario)
                         if not diretrizes:
                             print("Nenhuma diretriz geral encontrada para suas preferências.")
                         else:
                             print("\n--- Diretrizes Gerais ---")
-                            for idx, rec in enumerate(diretrizes, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('descricao', dados)}")
+                            idx = 1
+                            for rec in diretrizes:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("descricao"):
+                                    print(f"{idx}. {dados.get('descricao', '-')}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "4":
                         grupos = recomendacao.recomendar_grupos_musculares(preferencias_usuario)
                         if not grupos:
-                            print("Nenhum grupo muscular encontrado para suas preferências.")
+                            print("Nenhuma recomendação de grupo muscular encontrada para suas preferências.")
                         else:
-                            print("\n--- Grupos Musculares ---")
-                            for idx, rec in enumerate(grupos, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('nome', dados)}")
+                            print("\n--- Recomendações de Grupos Musculares e Exercícios ---")
+                            idx = 1
+                            for rec in grupos:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("nome_grupo"):
+                                    print(f"\n{idx}. Grupo Muscular: {dados.get('nome_grupo', '-')}")
+                                    print("   Exercícios Sugeridos:")
+                                    exercicios = dados.get('exercicios', [])
+                                    if not exercicios:
+                                        print("      - Nenhum exercício específico encontrado.")
+                                    else:
+                                        for ex in exercicios:
+                                            if isinstance(ex, dict):
+                                                exercicio = ex.get('exercicio', '-')
+                                                series = ex.get('series', '-')
+                                                repeticoes = ex.get('repeticoes', '-')
+                                                print(f"      - {exercicio}: {series}x{repeticoes}")
+                                            else:
+                                                print(f"      - {ex}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "5":
                         mobilidade = recomendacao.recomendar_mobilidade(preferencias_usuario)
                         if not mobilidade:
                             print("Nenhuma recomendação de mobilidade encontrada para suas preferências.")
                         else:
                             print("\n--- Recomendações de Mobilidade ---")
-                            for idx, rec in enumerate(mobilidade, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('descricao', dados)}")
+                            idx = 1
+                            for rec in mobilidade:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("descricao"):
+                                    print(f"{idx}. {dados.get('descricao', '-')}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "6":
                         divisoes = recomendacao.recomendar_divisoes_semanais(preferencias_usuario)
                         if not divisoes:
                             print("Nenhuma divisão semanal encontrada para suas preferências.")
                         else:
                             print("\n--- Divisões Semanais ---")
-                            for idx, rec in enumerate(divisoes, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('descricao', dados)}")
+                            idx = 1
+                            for rec in divisoes:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("descricao"):
+                                    print(f"{idx}. {dados.get('descricao', '-')}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "7":
                         progressao = recomendacao.recomendar_progressao(preferencias_usuario)
                         if not progressao:
                             print("Nenhuma recomendação de progressão encontrada para suas preferências.")
                         else:
                             print("\n--- Recomendações de Progressão ---")
-                            for idx, rec in enumerate(progressao, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('descricao', dados)}")
+                            idx = 1
+                            for rec in progressao:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("descricao"):
+                                    print(f"{idx}. {dados.get('descricao', '-')}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "8":
                         consideracoes = recomendacao.recomendar_consideracoes_finais(preferencias_usuario)
                         if not consideracoes:
                             print("Nenhuma consideração final encontrada para suas preferências.")
                         else:
                             print("\n--- Considerações Finais ---")
-                            for idx, rec in enumerate(consideracoes, 1):
-                                dados = rec.dados
-                                print(f"{idx}. {dados.get('descricao', dados)}")
+                            idx = 1
+                            for rec in consideracoes:
+                                dados = getattr(rec, "conteudo", None)
+                                if isinstance(dados, dict) and dados.get("descricao"):
+                                    print(f"{idx}. {dados.get('descricao', '-')}")
+                                    idx += 1
+                            if idx == 1:
+                                print("Nenhuma sugestão detalhada encontrada.")
+
                     elif subop == "9":
                         print("\n--- Atualizar Preferências ---")
-                        print(f"Nível atual: {preferencias_usuario['nivel']}")
+            
+                        mapa_nivel_inverso = {
+                            "iniciante": "Sedentário",
+                            "intermediario": "Moderado",
+                            "avancado": "Ativo"
+                        }
+                        nivel_atividade_atual = mapa_nivel_inverso.get(preferencias_usuario['nivel'], "N/A")
+                        
+                        
+                        restricoes_dieta_display = preferencias_usuario['restricoes_dieta']
+                        if not restricoes_dieta_display or restricoes_dieta_display == []:
+                            restricoes_dieta_display = "Nenhuma"
+                        elif isinstance(restricoes_dieta_display, list):
+                            if len(restricoes_dieta_display) == 1 and restricoes_dieta_display[0].lower() == "nenhuma":
+                                restricoes_dieta_display = "Nenhuma"
+                            else:
+                                restricoes_dieta_display = ", ".join(restricoes_dieta_display)
+                        
+                        restricoes_treino_display = preferencias_usuario['restricoes_treino']
+                        if not restricoes_treino_display or restricoes_treino_display == []:
+                            restricoes_treino_display = "Nenhuma"
+                        elif isinstance(restricoes_treino_display, list):
+                            if len(restricoes_treino_display) == 1 and restricoes_treino_display[0] == "Nenhuma":
+                                restricoes_treino_display = "Nenhuma"
+                            else:
+                                restricoes_treino_display = ", ".join(restricoes_treino_display)
+                        
+                        print(f"Nível de atividade atual: {nivel_atividade_atual} (Nível de treino: {preferencias_usuario['nivel']})")
                         print(f"Objetivo atual: {preferencias_usuario['objetivo']}")
                         print(f"Frequência de treino atual: {preferencias_usuario['frequencia_treino']}")
-                        print(f"Restrição dieta atual: {preferencias_usuario['restricao_dieta']}")
-                        print(f"Restrições treino atual: {preferencias_usuario['restricoes_treino']}")
-                        
-                        novo_nivel = input(f"Novo nível (pressione Enter para manter): ").strip()
-                        if novo_nivel: preferencias_usuario['nivel'] = novo_nivel
+                        print(f"Restrição dieta atual: {restricoes_dieta_display}")
+                        print(f"Restrições treino atual: {restricoes_treino_display}")
 
-                        novo_objetivo = input(f"Novo objetivo (pressione Enter para manter): ").strip()
-                        if novo_objetivo: preferencias_usuario['objetivo'] = novo_objetivo
-                        
-                        nova_freq = input(f"Nova frequência (pressione Enter para manter): ").strip()
-                        if nova_freq: preferencias_usuario['frequencia_treino'] = nova_freq
+                       
+                        print("\nNível de Atividade:")
+                        print("1. Sedentário (Treino Iniciante)")
+                        print("2. Moderado (Treino Intermediário)")
+                        print("3. Ativo (Treino Avançado)")
+                        nivel_op = input("Escolha uma opção (pressione Enter para manter): ").strip()
+                        if nivel_op:
+                            mapa_nivel_db = {"1": "Sedentário", "2": "Moderado", "3": "Ativo"}
+                            mapa_nivel_rec = {"1": "iniciante", "2": "intermediario", "3": "avancado"}
+                            if nivel_op in mapa_nivel_db:
+                                preferencias_usuario['nivel'] = mapa_nivel_rec[nivel_op]
+                                usuario_logado.nivel_atividade = mapa_nivel_db[nivel_op]
 
-                        nova_restricao_dieta = input(f"Nova restrição de dieta (pressione Enter para manter): ").strip()
-                        if nova_restricao_dieta: preferencias_usuario['restricao_dieta'] = nova_restricao_dieta
+                        print("\nObjetivo:")
+                        print("1. Emagrecimento")
+                        print("2. Hipertrofia")
+                        print("3. Força")
+                        print("4. Resistência")
+                        print("5. Mobilidade")
+                        objetivo_op = input("Escolha uma opção (pressione Enter para manter): ").strip()
+                        if objetivo_op:
+                            objetivo_dict = {"1": "Emagrecimento", "2": "Hipertrofia", "3": "Força", "4": "Resistência", "5": "Mobilidade"}
+                            objetivo_bd = {"1": "emagrecimento", "2": "hipertrofia", "3": "forca", "4": "resistencia", "5": "mobilidade"}
+                            if objetivo_op in objetivo_dict:
+                                preferencias_usuario['objetivo'] = objetivo_bd[objetivo_op]
+                                usuario_logado.objetivo = objetivo_dict[objetivo_op]
 
-                        novas_restricoes_treino = input(f"Novas restrições de treino (pressione Enter para manter): ").strip()
-                        if novas_restricoes_treino: preferencias_usuario['restricoes_treino'] = novas_restricoes_treino
-                        
-                        print("Preferências atualizadas!")
+                        print("\nFrequência de Treino:")
+                        print("1. 1x por semana")
+                        print("2. 2x por semana")
+                        print("3. 3x por semana")
+                        print("4. 4x por semana")
+                        print("5. 5x por semana")
+                        freq_op = input("Escolha uma opção (pressione Enter para manter): ").strip()
+                        if freq_op:
+                            freq_dict = {"1": "1x por semana", "2": "2x por semana", "3": "3x por semana", "4": "4x por semana", "5": "5x por semana"}
+                            if freq_op in freq_dict:
+                                preferencias_usuario['frequencia_treino'] = freq_dict[freq_op]
+                                usuario_logado.frequencia_treino = freq_dict[freq_op]
+                        print("\nRestrições Alimentares (ex: 2,3):")
+                        print("1. Nenhuma")
+                        print("2. Lactose")
+                        print("3. Glúten")
+                        print("4. Diabetes")
+                        restricao_dieta_input = input("Escolha uma opção (pressione Enter para manter): ").strip()
+                        if restricao_dieta_input:
+                            restricao_dieta_op = restricao_dieta_input.split(",")
+                            restricao_dieta_dict = {"1": "Nenhuma", "2": "Lactose", "3": "Glúten", "4": "Diabetes"}
+                            novas_restricoes = []
+                            if "1" in [op.strip() for op in restricao_dieta_op]:
+                                novas_restricoes = []
+                            else:
+                                for op in restricao_dieta_op:
+                                    op = op.strip()
+                                    if op in restricao_dieta_dict:
+                                        novas_restricoes.append(restricao_dieta_dict[op])
+                            preferencias_usuario['restricoes_dieta'] = novas_restricoes
+                            usuario_logado.restricao_dieta = novas_restricoes if novas_restricoes else "nenhuma"
+
+                        print("\nRestrições de Treino (ex: 2,3):")
+                        print("1. Nenhuma")
+                        print("2. Joelho")
+                        print("3. Ombro")
+                        print("4. Coluna")
+                        restricao_treino_input = input("Escolha uma opção (pressione Enter para manter): ").strip()
+                        if restricao_treino_input:
+                            restricao_treino_op = restricao_treino_input.split(',')
+                            restricao_treino_dict = {"1": "Nenhuma", "2": "Joelho", "3": "Ombro", "4": "Coluna"}
+                            novas_restricoes = []
+                            if "1" in [op.strip() for op in restricao_treino_op]:
+                                novas_restricoes = []
+                            else:
+                                for op in restricao_treino_op:
+                                    op = op.strip()
+                                    if op in restricao_treino_dict:
+                                        novas_restricoes.append(restricao_treino_dict[op])
+                            preferencias_usuario['restricoes_treino'] = novas_restricoes
+                            usuario_logado.restricoes_treino = novas_restricoes if novas_restricoes else []
+
+                        print("\nPreferências atualizadas!")
+                        auth.atualizar_usuario(usuario_logado.email, usuario_logado)
                     elif subop == "0":
-                        break
+                        break                
                     else:
                         print("Opção inválida.")
+                
             elif op == "9":
                 while True:
                     print("\n--- Feedback ---")
@@ -987,7 +1418,7 @@ def main():
                         feedback.criar_feedback(usuario_logado.email, texto, nota, data_atual)
                         print("Feedback enviado! Agradecemos pelo seu feedback!")
                     elif subop == "2":
-                        feedbacks = feedback.listar_feedbacks()
+                        feedbacks = feedback.listar_feedback()
                         if not feedbacks:
                             print("Nenhum feedback encontrado.")
                         else:
@@ -995,7 +1426,7 @@ def main():
                                 print(f"{idx}. {f.usuario_email}: (Nota: {f.nota}) (Data: {f.data})")
                                 print(f" Texto: {f.texto}")
                     elif subop == "3":
-                        meus_feedback = feedback.listar_feedbacks_usuario(usuario_logado.email)
+                        meus_feedback = feedback.listar_feedback()
                         if not meus_feedback:
                             print("Nenhum feedback encontrado.")
                         else:
@@ -1046,21 +1477,56 @@ def main():
                                 print(f"{idx}. {p.titulo} (Autor: {p.usuario_email}) (Data: {p.data})")
                                 print(f" Conteúdo: {p.mensagem}")
                     elif subop == "3":
-                        comentario = input("Digite o conteúdo do comentário: ")
-                        post_id = input("Digite o ID do post para comentar: ")
-                        data_comentario = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        if forum.comentar_post(post_id, usuario_logado.email, comentario, data_comentario):
-                            print("Comentário adicionado com sucesso!")
+                        posts = forum.listar_posts()
+                        if not posts:
+                            print("Nenhum post encontrado para comentar.")
                         else:
-                            print("Erro ao adicionar comentário. Verifique o ID do post.")
+                            print("\n--- Posts Disponíveis ---")
+                            for idx, p in enumerate(posts, 1):
+                                print(f"{idx}. {p.titulo} (Autor: {p.usuario_email}) (Data: {p.data})")
+                            
+                            try:
+                                escolha = int(input("\nEscolha o número do post para comentar (0 para cancelar): "))
+                                if escolha == 0:
+                                    continue
+                                if 1 <= escolha <= len(posts):
+                                    post_selecionado = posts[escolha - 1]
+                                    comentario = input("Digite o conteúdo do comentário: ")
+                                    data_comentario = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                                    if forum.comentar_post(post_selecionado.id, usuario_logado.email, comentario, data_comentario):
+                                        print("Comentário adicionado com sucesso!")
+                                    else:
+                                        print("Erro ao adicionar comentário.")
+                                else:
+                                    print("Número inválido.")
+                            except ValueError:
+                                print("Por favor, digite um número válido.")
                     elif subop == "4":
-                        post_id = input("Digite o ID do post para listar comentários: ")
-                        comentarios = forum.listar_comentarios(post_id)
-                        if not comentarios:
-                            print("Nenhum comentário encontrado para este post.")
+                        posts = forum.listar_posts()
+                        if not posts:
+                            print("Nenhum post encontrado.")
                         else:
-                            for idx, c in enumerate(comentarios, 1):
-                                print(f"{idx}. {c.usuario_email}: {c.mensagem} (Data: {c.data})")
+                            print("\n--- Posts Disponíveis ---")
+                            for idx, p in enumerate(posts, 1):
+                                print(f"{idx}. {p.titulo} (Autor: {p.usuario_email}) (Data: {p.data})")
+                            
+                            try:
+                                escolha = int(input("\nEscolha o número do post para ver comentários (0 para cancelar): "))
+                                if escolha == 0:
+                                    continue
+                                if 1 <= escolha <= len(posts):
+                                    post_selecionado = posts[escolha - 1]
+                                    comentarios = forum.listar_comentarios(post_selecionado.id)
+                                    if not comentarios:
+                                        print("Nenhum comentário encontrado para este post.")
+                                    else:
+                                        print(f"\n--- Comentários do Post: {post_selecionado.titulo} ---")
+                                        for idx, c in enumerate(comentarios, 1):
+                                            print(f"{idx}. {c.usuario_email}: {c.mensagem} (Data: {c.data})")
+                                else:
+                                    print("Número inválido.")
+                            except ValueError:
+                                print("Por favor, digite um número válido.")
                     elif subop == "5":
                         posts = forum.listar_posts()
                         comentarios = []
@@ -1074,11 +1540,32 @@ def main():
                     elif subop == "6":
                         forum.exibir_conteudo_usuario(usuario_logado.email)
                     elif subop == "7":
-                        post_id = input("Digite o ID do post para deletar: ")
-                        if forum.deletar_post(post_id):
-                            print("Post deletado com sucesso!")
+                        posts = forum.listar_posts()
+                        if not posts:
+                            print("Nenhum post encontrado para deletar.")
                         else:
-                            print("Erro ao deletar post. Verifique o ID do post.")
+                            meus_posts = [p for p in posts if p.usuario_email == usuario_logado.email]
+                            if not meus_posts:
+                                print("Você não tem posts para deletar.")
+                            else:
+                                print("\n--- Seus Posts ---")
+                                for idx, p in enumerate(meus_posts, 1):
+                                    print(f"{idx}. {p.titulo} (Data: {p.data})")
+                                
+                                try:
+                                    escolha = int(input("\nEscolha o número do post para deletar (0 para cancelar): "))
+                                    if escolha == 0:
+                                        continue
+                                    if 1 <= escolha <= len(meus_posts):
+                                        post_selecionado = meus_posts[escolha - 1]
+                                        if forum.deletar_post(post_selecionado.id):
+                                            print("Post deletado com sucesso!")
+                                        else:
+                                            print("Erro ao deletar post.")
+                                    else:
+                                        print("Número inválido.")
+                                except ValueError:
+                                    print("Por favor, digite um número válido.")
                     elif subop == "0":
                         break
                     else:

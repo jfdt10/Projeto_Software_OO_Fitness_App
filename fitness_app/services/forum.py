@@ -4,7 +4,7 @@ Este módulo fornece funcionalidades para criar posts, listar posts do usuário,
 """
 
 from fitness_app.core.models import PostForum, ComentarioForum, ConteudoForum
-from fitness_app.core.database import inserir_registro, obter_registros, atualizar_registro, deletar_registro
+from fitness_app.core.database import deletar_registro_por_id, inserir_registro, obter_registros
 
 class ServicoForum:
     def __init__(self):
@@ -37,4 +37,4 @@ class ServicoForum:
                 print(f"{conteudo.usuario_email}: {conteudo.mensagem} ({conteudo.data})")
 
     def deletar_post(self, post_id):
-        return deletar_registro('posts_forum', post_id)
+        return deletar_registro_por_id('posts_forum', post_id)
