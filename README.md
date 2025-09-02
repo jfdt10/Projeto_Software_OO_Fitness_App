@@ -5,7 +5,7 @@ Sistema completo de gerenciamento fitness desenvolvido com foco em **Programaç�
 ## Conceitos de POO Implementados
 
 ### Encapsulamento
-- **Atributos privados** protegidos com underscore (_atributo)
+- **Atributos privados** protegidos com underscore (_atributo) Obs: protegido
 - **Properties e Setters** com validação automática (peso, altura, notas)
 - **Métodos privados** para lógica interna
 - **Validações automáticas** que protegem integridade dos dados
