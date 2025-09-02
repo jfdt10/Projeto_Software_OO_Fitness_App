@@ -1,15 +1,27 @@
 """
-Servico de Video para o aplicativo de fitness.
-Este módulo fornece funcionalidades para pesquisar videos de treino e videos de orientação fitness, deletar videos.
+Serviço de Vídeo para o aplicativo de fitness.
+Este módulo fornece funcionalidades para pesquisar vídeos de treino e vídeos de orientação fitness, registrar, listar e deletar vídeos.
 """
-from wsgiref import headers
+
 from youtubesearchpython import VideosSearch
-from fitness_app.core.database import db, inserir_registro, obter_registros, deletar_registro_por_id
+from fitness_app.core.abc import ServicoBase
+from fitness_app.core.database import RepositorioTinyDB
 from fitness_app.core.models import Video
 
-class ServicoVideo:
-    def __init__(self):
-        pass
+
+class ServicoVideo(ServicoBase):
+    def __init__(self, repo=None):
+        super().__init__(repo or RepositorioTinyDB('videos'))
+        # Aqui usei Composição: ServicoVideo "possui" uma instância base de Video
+        self.video_base = Video(
+            titulo="",
+            descricao="",
+            url="",
+            thumbnail="",
+            duracao="",
+            data_publicacao="",
+            usuario_email=""
+        )
 
     def pesquisar_videos(self, query, max_results=10):
         search_videos = VideosSearch(query, limit=max_results)
@@ -24,23 +36,40 @@ class ServicoVideo:
                 'duracao': video.get('duration'),
                 'data_publicacao': video.get('publishedTime')
             }
-            videos.append(Video.from_dict(video_data))
+            # Usa a classe da instância base para criar vídeos
+            videos.append(type(self.video_base).from_dict(video_data)) 
         return videos
-    
-    def registrar_video(self, video: Video, usuario_email=None):
-        dados = video.to_dict()
+
+    def criar(self, video_data, usuario_email=None):
+        if not video_data:
+            raise ValueError('video_data é obrigatório')
+        
+        if hasattr(video_data, 'to_dict'):
+            dados = video_data.to_dict()
+        elif isinstance(video_data, dict):
+            dados = video_data
+        else:
+            raise TypeError('video_data deve ser um objeto ou dict')
+
         if usuario_email:
             dados['usuario_email'] = usuario_email
-        inserir_registro('videos', dados)
-        return True
-    
-    def listar_videos(self, usuario_email=None):
-        registros = obter_registros('videos')
-        if usuario_email:
-            registros = [r for r in registros if r.get('usuario_email') == usuario_email]
-        return [Video.from_dict(dado) for dado in registros]
-    
-    def deletar_video(self, video_id):
-        return deletar_registro_por_id('videos', video_id)
+        
+        # Usa a classe da instância base para criar novo vídeo
+        video = type(self.video_base).from_dict(dados)
+        return self.repo.inserir(video)
 
-    
+    def listar(self, usuario_email=None):
+        query = None
+        if usuario_email:
+            from tinydb import Query as Q
+            q = Q()
+            query = q.usuario_email == usuario_email
+        
+        # Usa a classe da instância base para o model_cls
+        return self.repo.listar(query=query, model_cls=type(self.video_base))
+
+    def atualizar(self, id, dados):
+        return self.repo.atualizar(id, dados)
+
+    def deletar(self, id):
+        return self.repo.deletar(id)

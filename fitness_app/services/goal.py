@@ -1,17 +1,28 @@
 """
-Serviço de Treino para o aplicativo de fitness.
+Serviço de Metas para o aplicativo de fitness.
 Este módulo fornece funcionalidades para criar metas personalizadas, listas metas do usuário e verfificar progresso.
 """
 
+from fitness_app.core.abc import ServicoBase
 from fitness_app.core.models import Meta
-from fitness_app.core.database import atualizar_registro_por_id, deletar_registro_por_id, inserir_registro, obter_registros
+from fitness_app.core.database import RepositorioTinyDB
 
-class ServicoMeta:
-    def __init__(self):
-        pass
-    
-    def criar_meta(self, usuario_email, tipo, valor, data_inicio, data_fim):
-        meta = Meta(
+class ServicoMeta(ServicoBase):
+    def __init__(self, repo=None):
+        super().__init__(repo or RepositorioTinyDB('metas'))
+        # Aqui usei Composição: ServicoMeta "possui" uma instância base de Meta
+        self.meta_base = Meta(
+            usuario_email="",
+            tipo="",
+            valor=0,
+            data_inicio="",
+            data_fim="",
+            atingida=False
+        )
+
+    def criar(self, usuario_email, tipo, valor, data_inicio, data_fim):
+        # Usa a classe da instância base para criar nova meta
+        meta = type(self.meta_base)(
             usuario_email=usuario_email,
             tipo=tipo,        
             valor=valor,        
@@ -19,26 +30,26 @@ class ServicoMeta:
             data_fim=data_fim,
             atingida=False
         )
-        return inserir_registro('metas', meta.to_dict())
+        return self.repo.inserir(meta)
 
-    def listar_metas_usuario(self, usuario_email):
-        return [
-            Meta.from_dict(dado)
-            for dado in obter_registros('metas')
-            if dado.get('usuario_email') == usuario_email
-        ]
+    def listar(self, usuario_email):
+        # Usa a classe da instância base para o model_cls
+        metas = self.repo.listar(model_cls=type(self.meta_base))
+        if usuario_email:
+            metas = [m for m in metas if m.usuario_email == usuario_email]
+        return metas
 
-    def atualizar_meta(self, meta_id, novos_dados: dict):
-        return atualizar_registro_por_id('metas', meta_id, novos_dados)
+    def atualizar(self, id, dados: dict):
+        return self.repo.atualizar(id, dados)
 
-    def deletar_meta(self, meta_id):
-        return deletar_registro_por_id('metas', meta_id)
+    def deletar(self, id):
+        return self.repo.deletar(id)
 
     def verificar_progresso(self, usuario_email):
-        metas = self.listar_metas_usuario(usuario_email)
-        atingidas = [m for m in metas if m.atingida]
-        pendentes = [m for m in metas if not m.atingida]
+        metas = self.listar(usuario_email)
+        atingidas = [m for m in metas if getattr(m, 'atingida', False)]
+        pendentes = [m for m in metas if not getattr(m, 'atingida', False)]
         return {"atingidas": atingidas, "pendentes": pendentes}
     
-    def concluir_meta(self, meta_id):
-        return self.atualizar_meta(meta_id, {"atingida": True})
+    def concluir_meta(self, id):
+        return self.atualizar(id, {"atingida": True})
