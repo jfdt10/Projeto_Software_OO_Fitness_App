@@ -1,6 +1,6 @@
 # Projeto Software Fitness App - Orientado a Objetos
 
-Sistema completo de gerenciamento fitness desenvolvido com foco em **Programação Orientada a Objetos**, demonstrando os Cinco pilares fundamentais: **Herança**, **Polimorfismo**, **Encapsulamento** e **Abstração**, **Composição**.
+Sistema completo de gerenciamento fitness desenvolvido com foco em **Programação Orientada a Objetos**, demonstrando os Cinco pilares fundamentais: **Herança**, **Polimorfismo**, **Encapsulamento**, **Abstração** e **Composição**.
 
 ## Conceitos de POO Implementados
 
