@@ -38,6 +38,21 @@ class Usuario:
         self._criado_em = criado_em
         self._id = id or str(uuid.uuid4())
 
+
+    @property
+    def nome(self):
+        return self._nome
+
+    @nome.setter
+    def nome(self, valor):
+        if not self.validar_nome(valor):
+            raise ValueError("Nome inválido. O nome deve conter pelo menos 2 caracteres e não pode conter caracteres numéricos.")
+        self._nome = valor
+
+    @staticmethod
+    def validar_nome(nome):
+        return len(nome.strip()) >= 2 and nome.replace(" ", "").isalpha()
+
     @property
     def id(self):
         return self._id

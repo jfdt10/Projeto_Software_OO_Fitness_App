@@ -265,8 +265,12 @@ def alterar_senha_usuario(auth, usuario_logado):
         print("A nova senha não pode estar vazia.")
         return
     try:
-        auth.alterar_senha(usuario_logado.email, senha_atual, nova_senha)
-        print("Senha alterada com sucesso!")
+        
+        resultado = auth.alterar_senha(usuario_logado.email, senha_atual, nova_senha)
+        if resultado:
+            print("Senha alterada com sucesso!")
+        else:
+            print("Erro ao alterar senha. Verifique sua senha atual.")
     except Exception as e:
         print(f"Erro ao alterar senha: {e}")
 
