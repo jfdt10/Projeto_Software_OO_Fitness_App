@@ -9,7 +9,7 @@ from fitness_app.terminal.menus import (
 
 def main():
     auth = ServicoAutenticacao()
-    usuario_logado = None
+    usuario_logado = None # Inicializa a variável usuario_logado como None (sem usuário logado)
 
     while True:
         if not usuario_logado:

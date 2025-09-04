@@ -250,8 +250,7 @@ def recuperar_senha_usuario(auth):
     if not email:
         print("Email não pode estar vazio.")
         return
-    
-    print("Por segurança, precisamos verificar algumas informações...")
+    usuario = auth.buscar_usuario_por_email(email)        
     rec = auth.recuperar_senha(email)
     if rec:
         print("Recuperação concluída com sucesso.")
@@ -1578,7 +1577,7 @@ def gerenciar_forum(usuario_logado):
                 print("Nenhum conteúdo no fórum.")
             else:
                 for c in conteudos:
-                    print(c.exibir())
+                    print(c.exibir());
         elif subop == "6":
             conteudos = executar_crud('forum', 'listar', usuario_email=usuario_logado.email)
             if not conteudos:

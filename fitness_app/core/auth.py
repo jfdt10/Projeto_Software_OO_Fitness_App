@@ -104,26 +104,28 @@ class ServicoAutenticacao:
         return self.repo.atualizar(user_id, usuario_atual.to_dict())   
     
     def recuperar_senha(self, email):
+        usuario = self.buscar_usuario_por_email(email)
+        if not usuario:
+            print("Usuário não encontrado no sistema.")
+            return None
+        else:
+            print("Por segurança, precisamos verificar algumas informações...")
 
-        usuarios = self.repo.listar(model_cls=Usuario)
-        
-        for usuario in usuarios:
-            if usuario.email == email:
-                print(f"\nUsuário encontrado: {usuario.nome}")
-                idade_informada = input(f"Qual sua idade? ")
+        while True:
+            idade_informada = input(f"Qual sua idade? ")
             try:
-                if int(idade_informada) != usuario.idade:
-                    print("Informação incorreta. Recuperação negada.")
-                    return False
+                idade_informada = int(idade_informada)
+                if idade_informada <= 0:
+                    print("Idade deve ser um número positivo. Tente novamente.")
+                    continue
+                break
             except ValueError:
-                print("Idade inválida. Recuperação negada.")
-                return False
-
-            print(f"Sua senha é: {usuario._senha}")
-            return True
-
-        print("Usuário não encontrado no sistema.")
-        return False
+                print("Idade inválida. Por favor, insira um número inteiro.")
+            
+        if usuario.idade != idade_informada:
+            print("Idade informada não confere.")
+            return None
+        print(f"Sua senha é: {usuario._senha}")
     
     def alterar_senha(self, email, senha_atual, nova_senha):
         if not nova_senha or len(nova_senha) < 3:
